@@ -1,0 +1,10 @@
+---
+- name: download and run container on docker host
+  hosts: container
+  tasks:
+  
+  - name: pull docker image
+    command: /usr/bin/docker pull maxpain62/regapp:latest
+    
+  - name: run container 
+    command: /usr/bin/docker run -d --name test-regapp -p 8080:8080 maxpain62/regapp

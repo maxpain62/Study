@@ -1,0 +1,22 @@
+---
+- name: build and deploy docker image
+  hosts: localhost
+  tasks:
+  
+  - name: build docker image
+    command: /usr/bin/docker build -f Dockerfile -t maxpain62/regapp .
+    args:
+      chdir: /home/ansadmin/docker
+    register: build_image_output
+    
+  - name: debug var
+    debug:
+      var: build_image_output
+
+  - name: deploy docker image on docker hub
+    command: /usr/bin/docker push maxpain62/regapp:latest
+    register: deploy_image_output
+    
+  - name: debug var
+    debug:
+      var: build_image_output
