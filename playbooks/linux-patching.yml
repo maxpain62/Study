@@ -17,7 +17,6 @@
     debug:
       var: OS_update_output
 
-  - name: print custom msg
-    debug:
-      msg: kernel updated, reboot require.
-    when: OS_update_output is search("kernel")
+  - name: reboot if kernel is updated
+    command: /sbin/shutdown -r now
+    when: OS_update_output.changes is search("kernel")
