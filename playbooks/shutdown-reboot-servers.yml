@@ -1,0 +1,13 @@
+---
+- name: shutdown/reboot servers
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: shutdown servers
+    command: /usr/sbin/shutdown -h now
+    tags: shutdown
+
+  - name: reboot servers
+    command: /usr/sbin/shutdown -r now
+    tags: reboot
