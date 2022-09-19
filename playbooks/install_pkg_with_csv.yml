@@ -1,0 +1,21 @@
+---
+- name: install packages as per csv file
+  hosts: all
+  become: true
+  tasks: 
+  
+  - name: read packages.csv file and store variable
+    read_csv:
+      path: /home/ansadmin/playbook/packages.csv
+    register: pkg_var
+    delegate_to: localhost
+   
+  - name: show pkg_var value
+    debug:
+      var: pkg_var.list
+ 
+  - name: install packages
+    yum:
+      name: "{{ item.packages }}"
+      state: present
+    loop: "{{ pkg_var.list }}"
