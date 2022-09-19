@@ -29,3 +29,6 @@ printf "\nprint logical volumes: \n"
 
 printf "\nprint kernel: \n"
 /bin/rpm -qa | grep kernel
+
+printf "\ntake backup of /etc/hosts file: \n"
+/bin/cat /etc/hosts
