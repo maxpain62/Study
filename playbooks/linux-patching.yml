@@ -1,0 +1,23 @@
+---
+- name: linux patching
+  hosts: all
+  become: true
+  tasks:
+  
+  - name: take backup of essential 
+    shell: /home/ansadmin/playbook/pre-boot-backup.sh > pre-boot-output-{{ ansible_date_time.date }}
+
+  - name: update all packages
+    yum:
+      name: '*'
+      state: latest
+    register: OS_update_output
+    
+  - name: check status of OS update
+    debug:
+      var: OS_update_output
+
+  - name: print custom msg
+    debug:
+      msg: kernel updated, reboot require.
+    when: OS_update_output is search("kernel")
