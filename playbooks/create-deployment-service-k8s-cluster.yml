@@ -1,0 +1,10 @@
+---
+- name: deploy on kubernetes cluster
+  hosts: k8s
+  tasks:
+  
+  - name: create deployment
+    command: /bin/kubectl apply -f /home/kubeadmin/regapp-deployment.yml
+    
+  - name: create service
+    command: /bin/kubectl apply -f /home/kubeadmin/regapp-service.yml
