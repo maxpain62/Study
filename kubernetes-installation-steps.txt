@@ -2,6 +2,7 @@
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 swapoff -a
+vi /etc/fstab
 modprobe overlay
 modprobe br_netfilter
 systemctl disable firewalld;
