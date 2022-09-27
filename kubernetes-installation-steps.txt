@@ -2,11 +2,13 @@
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
 swapoff -a
-vi /etc/fstab
+vi /etc/fstab #comment swap line 
+
+systemctl disable firewalld
+systemctl stop firewalld
+
 modprobe overlay
 modprobe br_netfilter
-systemctl disable firewalld;
-systemctl stop firewalld
 
 cat <<EOF | tee /etc/modules-load.d/k8s.conf
 overlay
@@ -23,7 +25,7 @@ sysctl --system
 
 curl https://download.docker.com/linux/centos/docker-ce.repo > /etc/yum.repos.d/docker-ce.repo
 
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+vi /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
@@ -31,10 +33,8 @@ enabled=1
 gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 
-EOF
 
 yum update -y
-
 shutdown -r now
 
 yum install kubelet kubeadm kubectl docker-ce docker-ce-cli containerd.io docker-compose-plugin --disableexcludes=kubernetes -y
@@ -56,5 +56,5 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 
 =======perform these steps only on woeker nodes=======
-kubeadm join
+kubeadm join (enter token here which you will get after successful installation of kubernetes master node)
 ======================================================
