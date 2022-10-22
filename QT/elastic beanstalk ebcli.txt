@@ -1,40 +1,81 @@
 create elastic beanstalk with ebcli
 
-step 1 - sudo apt update
-step 2 - sudo apt install unzip -y
-step 3 - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-step 4 - unzip awscliv2.zip
-step 5 - sudo ./aws/install
-step 6 - aws configure
-step 7 - sudo apt install python3-pip -y
-step 8 - pip install awsebcli --upgrade --user
-step 9 - echo "export PATH=~/.local/bin:$PATH" >> .bashrc ; source .bashrc; tail .bashrc
+create user and attach IAM policy to user
+refer below policy:-
+==================
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "rds:*",
+                "apigateway:*",
+                "s3:*",
+                "IAM:*",
+                "cloudtrail:*",
+                "cloudformation:*",
+                "elasticloadbalancing:*",
+                "elasticbeanstalk:CreateStorageLocation",
+                "autoscaling-plans:*",
+                "autoscaling:*",
+                "elasticbeanstalk:CheckDNSAvailability",
+                "elasticbeanstalk:ListPlatformBranches",
+                "elasticbeanstalk:*",
+                "cloudfront:*",
+                "glacier:*",
+                "cloudwatch:*",
+                "lambda:*",
+                "ec2:*",
+                "eks:*"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+==================
 
+
+sudo apt update
+sudo apt install unzip -y
+
+step1 - run below commands to download and install aws:-
+==================
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+aws configure
+=================
+
+step2 -  run below commansd to install python3, pip, and awsebcli
+=================
+sudo apt install python3-pip -y
+pip install awsebcli --upgrade --user
+echo "export PATH=~/.local/bin:$PATH" >> .bashrc ; source .bashrc; tail .bashrc
+=================
+
+step3 - execute below commands to create directory and run virtual env
+=================
 mkdir eb-flask
-
 cd eb-flask
-
 virtualenv virt
-
-
 sudo apt install python3-virtualenv
-
 virtualenv virt
-
-
- source virt/bin/activate
-
-
+source virt/bin/activate
 pip install flask==2.0.3
+pip freeze
+pip freeze > requirements.txt
+=================
 
- pip freeze
- 
- pip freeze > requirements.txt
- 
- touch application.py
 
-###############
+step4 - create application.pt and insert sample code in it
+
+=================
+touch application.py
+
 vi application.py
+
 from flask import Flask
 
 # print a nice greeting.
@@ -69,18 +110,17 @@ if __name__ == "__main__":
     # removed before deploying a production app.
     application.debug = True
     application.run()
+===============
 
-
+step4 - run python app with below command
+===============
 python application.py
+===============
 
-
+step5 - run below commands to deploy app on elastic bealstalk
+===============
 virt
-
-
-
 eb init -p python-3.7 flask-tutorial --region ap-south-1
-
 eb init
-
 eb create flask-env
-
+===============
