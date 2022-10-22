@@ -1,3 +1,5 @@
+reference:- https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html
+
 create elastic beanstalk with ebcli
 
 create user and attach IAM policy to user
@@ -119,7 +121,10 @@ python application.py
 
 step5 - run below commands to deploy app on elastic bealstalk
 ===============
+vi .ebignore #add an .ebignore file that tells the EB CLI to leave out the virt folder
 virt
+
+
 eb init -p python-3.7 flask-tutorial --region ap-south-1
 eb init
 eb create flask-env
