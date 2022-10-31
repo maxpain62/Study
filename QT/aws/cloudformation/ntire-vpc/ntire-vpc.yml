@@ -7,7 +7,7 @@ Resources:
       Tags:
         - Key: Name
           Value: cfvpc
-  cfsubnet:
+  web1:
     Type: "AWS::EC2::Subnet"
     Properties:
       CidrBlock: "10.0.0.0/24"
@@ -16,4 +16,54 @@ Resources:
          Ref: cfvpc
       Tags:
         - Key: Name
-          Value: cfsubnet
+          Value: web1
+  web2:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      CidrBlock: "10.0.1.0/24"
+      AvailabilityZone: "ap-south-1b"
+      VpcId: 
+         Ref: cfvpc
+      Tags:
+        - Key: Name
+          Value: web2
+  app1:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      CidrBlock: "10.0.2.0/24"
+      AvailabilityZone: "ap-south-1a"
+      VpcId: 
+         Ref: cfvpc
+      Tags:
+        - Key: Name
+          Value: app1
+  app2:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      CidrBlock: "10.0.3.0/24"
+      AvailabilityZone: "ap-south-1b"
+      VpcId: 
+         Ref: cfvpc
+      Tags:
+        - Key: Name
+          Value: app2
+  db1:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      CidrBlock: "10.0.4.0/24"
+      AvailabilityZone: "ap-south-1a"
+      VpcId: 
+         Ref: cfvpc
+      Tags:
+        - Key: Name
+          Value: db1
+  db2:
+    Type: "AWS::EC2::Subnet"
+    Properties:
+      CidrBlock: "10.0.5.0/24"
+      AvailabilityZone: "ap-south-1a"
+      VpcId: 
+         Ref: cfvpc
+      Tags:
+        - Key: Name
+          Value: db2
