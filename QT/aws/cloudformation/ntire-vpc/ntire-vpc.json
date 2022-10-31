@@ -1,0 +1,32 @@
+{
+    "Resources": {
+        "cfvpc": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": "10.0.0.0/16",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "cfvpc"
+                    }
+                ]
+            }
+        },
+        "cfsubnet": {
+            "Type": "AWS::EC2::Subnet",
+            "Properties": {
+                "CidrBlock": "10.0.0.0/24",
+                "AvailabilityZone": "ap-south-1a",
+                "VpcId": {
+                    "Ref": "cfvpc"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "cfsubnet"
+                    }
+                ]
+            }
+        }
+    }
+}
