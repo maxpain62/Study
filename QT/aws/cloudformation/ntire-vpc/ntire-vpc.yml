@@ -8,6 +8,12 @@ Parameters:
     Description: "subnet cidr"
     Type: CommaDelimitedList
     Default: "10.0.0.0/24,10.0.1.0/24,10.0.2.0/24,10.0.3.0/24,10.0.4.0/24,10.0.5.0/24"
+  zone1:
+    Description: zone for web1,app1,db1
+    Type: AWS::EC2::AvailabilityZone::Name
+  zone2:
+    Description: zone for web2,app2,db2
+    Type: AWS::EC2::AvailabilityZone::Name
 Resources:
   cfvpc:
     Type: "AWS::EC2::VPC"
@@ -22,7 +28,8 @@ Resources:
     Properties:
       CidrBlock: 
         Fn::Select: [ 0, Ref: subnetcidr ]
-      AvailabilityZone: "ap-south-1a"
+      AvailabilityZone: 
+        Ref: zone1
       VpcId:
         Ref: cfvpc
       Tags:
@@ -33,7 +40,8 @@ Resources:
     Properties:
       CidrBlock: 
         Fn::Select: [ 1, Ref: subnetcidr ]
-      AvailabilityZone: "ap-south-1b"
+      AvailabilityZone: 
+        Ref: zone2
       VpcId:
         Ref: cfvpc
       Tags:
@@ -44,7 +52,8 @@ Resources:
     Properties:
       CidrBlock: 
         Fn::Select: [ 2, Ref: subnetcidr ]
-      AvailabilityZone: "ap-south-1a"
+      AvailabilityZone: 
+        Ref: zone1
       VpcId:
         Ref: cfvpc
       Tags:
@@ -55,7 +64,8 @@ Resources:
     Properties:
       CidrBlock: 
         Fn::Select: [ 3, Ref: subnetcidr ]
-      AvailabilityZone: "ap-south-1b"
+      AvailabilityZone: 
+        Ref: zone2
       VpcId:
         Ref: cfvpc
       Tags:
@@ -66,7 +76,8 @@ Resources:
     Properties:
       CidrBlock: 
         Fn::Select: [ 4, Ref: subnetcidr ]
-      AvailabilityZone: "ap-south-1a"
+      AvailabilityZone: 
+        Ref: zone1
       VpcId:
         Ref: cfvpc
       Tags:
@@ -77,7 +88,8 @@ Resources:
     Properties:
       CidrBlock: 
         Fn::Select: [ 5, Ref: subnetcidr ]
-      AvailabilityZone: "ap-south-1a"
+      AvailabilityZone: 
+        Ref: zone2
       VpcId:
         Ref: cfvpc
       Tags:
