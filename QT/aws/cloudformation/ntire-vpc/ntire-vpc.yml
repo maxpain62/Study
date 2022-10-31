@@ -1,69 +1,85 @@
 ---
+Parameters:
+  vpccidr:
+    Description: "cidr parameter for vpc"
+    Type: String
+    Default: 10.0.0.0/16
+  subnetcidr:
+    Description: "subnet cidr"
+    Type: CommaDelimitedList
+    Default: "10.0.0.0/24,10.0.1.0/24,10.0.2.0/24,10.0.3.0/24,10.0.4.0/24,10.0.5.0/24"
 Resources:
   cfvpc:
     Type: "AWS::EC2::VPC"
     Properties:
-      CidrBlock: "10.0.0.0/16"
+      CidrBlock:
+        Ref: vpccidr
       Tags:
         - Key: Name
           Value: cfvpc
   web1:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.0.0.0/24"
+      CidrBlock: 
+        Fn::Select: [ 0, Ref: subnetcidr ]
       AvailabilityZone: "ap-south-1a"
-      VpcId: 
-         Ref: cfvpc
+      VpcId:
+        Ref: cfvpc
       Tags:
         - Key: Name
           Value: web1
   web2:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.0.1.0/24"
+      CidrBlock: 
+        Fn::Select: [ 1, Ref: subnetcidr ]
       AvailabilityZone: "ap-south-1b"
-      VpcId: 
-         Ref: cfvpc
+      VpcId:
+        Ref: cfvpc
       Tags:
         - Key: Name
           Value: web2
   app1:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.0.2.0/24"
+      CidrBlock: 
+        Fn::Select: [ 2, Ref: subnetcidr ]
       AvailabilityZone: "ap-south-1a"
-      VpcId: 
-         Ref: cfvpc
+      VpcId:
+        Ref: cfvpc
       Tags:
         - Key: Name
           Value: app1
   app2:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.0.3.0/24"
+      CidrBlock: 
+        Fn::Select: [ 3, Ref: subnetcidr ]
       AvailabilityZone: "ap-south-1b"
-      VpcId: 
-         Ref: cfvpc
+      VpcId:
+        Ref: cfvpc
       Tags:
         - Key: Name
           Value: app2
   db1:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.0.4.0/24"
+      CidrBlock: 
+        Fn::Select: [ 4, Ref: subnetcidr ]
       AvailabilityZone: "ap-south-1a"
-      VpcId: 
-         Ref: cfvpc
+      VpcId:
+        Ref: cfvpc
       Tags:
         - Key: Name
           Value: db1
   db2:
     Type: "AWS::EC2::Subnet"
     Properties:
-      CidrBlock: "10.0.5.0/24"
+      CidrBlock: 
+        Fn::Select: [ 5, Ref: subnetcidr ]
       AvailabilityZone: "ap-south-1a"
-      VpcId: 
-         Ref: cfvpc
+      VpcId:
+        Ref: cfvpc
       Tags:
         - Key: Name
           Value: db2
