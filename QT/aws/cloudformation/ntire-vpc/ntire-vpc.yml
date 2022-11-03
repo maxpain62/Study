@@ -95,3 +95,78 @@ Resources:
       Tags:
         - Key: Name
           Value: db2
+  websg:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "web sg created with cf"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          FromPort: -1 
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      VpcId:
+        Ref: cfvpc
+      Tags:
+      - Key: Name
+        Value: websg      
+  appsg:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "app sg created with cf"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0 
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          FromPort: -1 
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      VpcId:
+        Ref: cfvpc
+      Tags:
+      - Key: Name
+        Value: appsg
+  dbsg:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "db sg created with cf"
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 
+            Ref: vpccidr
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 
+            Ref: vpccidr
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          FromPort: -1 
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      VpcId:
+        Ref: cfvpc
+      Tags:
+      - Key: Name
+        Value: dbsg
