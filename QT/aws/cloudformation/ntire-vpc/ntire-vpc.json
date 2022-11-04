@@ -184,6 +184,50 @@
                 ]
             }
         },
+
+
+        
+        "itgw1": {
+          "Type": "AWS::EC2::InternetGateway",
+          "Properties": {
+            "Tags": [{"Key":"Name", "Value": "itgw1"}]
+          }
+        },
+        "AttachGateway": {
+          "Type": "AWS::EC2::VPCGatewayAttachment",
+          "Properties": {
+            "VpcId": { "Ref": "cfvpc" },
+            "InternetGatewayId": { "Ref": "itgw1" }
+          }
+        },
+        
+        "publicrttb1": {
+          "Type": "AWS::EC2::RouteTable",
+          "Properties": {
+            "VpcId": { "Ref": "cfvpc" },
+            "Tags": [{"Key": "Name", "Value": "publicrttb1"}]
+          }
+        },
+        "publicrt1": {
+          "Type": "AWS::EC2::Route",
+          "Properties": {
+            "RouteTableId": { "Ref": "publicrttb1" },
+            "DestinationCidrBlock": "0.0.0.0/0",
+            "GatewayId": { "Ref": "itgw1" }
+          }
+        },
+        "routeTableAssocName": {
+          "Type": "AWS::EC2::SubnetRouteTableAssociation",
+          "Properties": {
+            "SubnetId": { "Ref": "web1" },
+            "RouteTableId": { "Ref": "publicrttb1" }
+          }
+        },
+        
+        
+        
+        
+
         "websg": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
@@ -301,6 +345,61 @@
                         "Value": "dbsg"
                     }
                 ]
+            }
+        },
+        
+
+        "cfrdssubnetgroup": {
+           "Type": "AWS::RDS::DBSubnetGroup",
+           "Properties": {
+              "DBSubnetGroupDescription": "group for rds instance",
+              "SubnetIds": [ 
+              { "Ref": "db1" },
+              { "Ref": "db2" } ],
+              "Tags": [ {"Key": "Name", "Value": "cfrdssubnetgroup" } ]
+           }
+        },
+        "cfdbinstance": {
+          "Type": "AWS::RDS::DBInstance",
+          "Properties": {
+            "AllocatedStorage": "20",
+            "DBInstanceClass": "db.t2.micro",
+            "AllowMajorVersionUpgrade": "false",
+            "AutoMinorVersionUpgrade": "false",
+            "AvailabilityZone": {"Ref": "zone2"},
+            "DBInstanceIdentifier": "cfdbinstance",
+            "DBName": "cfdb",
+            "DBSubnetGroupName": {"Ref": "cfrdssubnetgroup"},
+            "Engine": "mysql",
+            "MasterUsername": "root",
+            "MasterUserPassword": "password2022",
+            "MultiAZ": "false",
+            "Port": "3306",
+            "PubliclyAccessible": "false",
+            "StorageEncrypted": "false",
+            "VPCSecurityGroups": [ { "Ref": "dbsg" } ],
+            "Tags": [ {"Key": "Name", "Value": "cfdbinstance"} ]
+          }
+        },
+        
+        
+        "webinstance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "AvailabilityZone": {"Ref": "zone1"},
+                
+                "NetworkInterfaces": [ {
+                    "AssociatePublicIpAddress": "true",
+                    "DeviceIndex": "0",
+                    "GroupSet": [{"Ref": "websg"}],
+                    "SubnetId" : {"Ref": "web1"}
+                } ],
+                "KeyName": "laptop",
+                "ImageId": "ami-062df10d14676e201",
+                "InstanceType": "t2.micro",
+                "Monitoring": "false",
+                
+                "Tags": [{ "Key": "Name", "Value": "webinstance"}]
             }
         }
     }
