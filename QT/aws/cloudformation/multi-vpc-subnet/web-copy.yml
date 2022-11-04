@@ -1,0 +1,370 @@
+---
+Parameters:
+  vpccidr:
+    Description: enter cidr for vpc
+    Type: CommaDelimitedList
+    Default: 10.0.0.0/16,192.168.0.0/16
+  primarysubnetcidr:
+    Description: enter cidr for primary subnet
+    Type: CommaDelimitedList
+    Default: 10.0.0.0/24,10.0.1.0/24,10.0.2.0/24,10.0.3.0/24
+  secondarysubnetcidr:
+    Description: enter cidr for secondary subnet
+    Type: CommaDelimitedList
+    Default: 192.168.0.0/24,192.168.1.0/24,192.168.2.0/24,192.168.3.0/24
+  targetaz:
+    Description: Enter target availability zone name
+    Type: AWS::EC2::AvailabilityZone::Name
+  targetaz2:
+    Description: Enter target availability zone name
+    Type: AWS::EC2::AvailabilityZone::Name
+  targetimageid1:
+    Description: Please enter image id
+    Type: String
+Resources:
+  vpc1:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock:
+        Fn::Select:
+        - 0
+        - Ref: vpccidr
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+      - Key: Name
+        Value: vpc1
+  vpc2:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock:
+        Fn::Select:
+        - 1
+        - Ref: vpccidr
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+      - Key: Name
+        Value: vpc2
+  primarysubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz
+      VpcId:
+        Ref: vpc1
+      CidrBlock:
+        Fn::Select:
+        - 0
+        - Ref: primarysubnetcidr
+      Tags:
+      - Key: Name
+        Value: primarysubnet1
+  primarysubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz
+      VpcId:
+        Ref: vpc1
+      CidrBlock:
+        Fn::Select:
+        - 1
+        - Ref: primarysubnetcidr
+      Tags:
+      - Key: Name
+        Value: primarysubnet2
+  primarysubnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz
+      VpcId:
+        Ref: vpc1
+      CidrBlock:
+        Fn::Select:
+        - 2
+        - Ref: primarysubnetcidr
+      Tags:
+      - Key: Name
+        Value: primarysubnet3
+  primarysubnet4:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz
+      VpcId:
+        Ref: vpc1
+      CidrBlock:
+        Fn::Select:
+        - 3
+        - Ref: primarysubnetcidr
+      Tags:
+      - Key: Name
+        Value: primarysubnet4
+  secondarysubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz2
+      VpcId:
+        Ref: vpc2
+      CidrBlock:
+        Fn::Select:
+        - 0
+        - Ref: secondarysubnetcidr
+      Tags:
+      - Key: Name
+        Value: secondarysubnet1
+  secondarysubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz2
+      VpcId:
+        Ref: vpc2
+      CidrBlock:
+        Fn::Select:
+        - 1
+        - Ref: secondarysubnetcidr
+      Tags:
+      - Key: Name
+        Value: secondarysubnet2
+  secondarysubnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz2
+      VpcId:
+        Ref: vpc2
+      CidrBlock:
+        Fn::Select:
+        - 2
+        - Ref: secondarysubnetcidr
+      Tags:
+      - Key: Name
+        Value: secondarysubnet3
+  secondarysubnet4:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz2
+      VpcId:
+        Ref: vpc2
+      CidrBlock:
+        Fn::Select:
+        - 3
+        - Ref: secondarysubnetcidr
+      Tags:
+      - Key: Name
+        Value: secondarysubnet4
+  itgw1:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: itgw1
+  AttachGateway1:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: vpc1
+      InternetGatewayId:
+        Ref: itgw1
+  itgw2:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: itgw2
+  AttachGateway2:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: vpc2
+      InternetGatewayId:
+        Ref: itgw2
+  rttb1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: vpc1
+      Tags:
+      - Key: Name
+        Value: rttb1
+  rt1:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: rttb1
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: itgw1
+  privaterttb1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: vpc1
+      Tags:
+      - Key: Name
+        Value: privaterttb1
+  rttb2:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: vpc2
+      Tags:
+      - Key: Name
+        Value: rttb2
+  rt2:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId:
+        Ref: rttb2
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: itgw2
+  privaterttb2:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: vpc2
+      Tags:
+      - Key: Name
+        Value: privaterttb2
+  primarysubnet1rttb1association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: primarysubnet1
+      RouteTableId:
+        Ref: rttb1
+  primarysubnet2privaterttb1association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: primarysubnet2
+      RouteTableId:
+        Ref: privaterttb1
+  primarysubnet3privaterttb1association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: primarysubnet3
+      RouteTableId:
+        Ref: privaterttb1
+  primarysubnet4privaterttb1association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: primarysubnet4
+      RouteTableId:
+        Ref: privaterttb1
+  secondarysubnet1rttb2association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: secondarysubnet1
+      RouteTableId:
+        Ref: rttb2
+  secondarysubnet2privaterttb2association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: secondarysubnet2
+      RouteTableId:
+        Ref: privaterttb2
+  secondarysubnet3privaterttb2association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: secondarysubnet3
+      RouteTableId:
+        Ref: privaterttb2
+  secondarysubnet4privaterttb2association:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: secondarysubnet4
+      RouteTableId:
+        Ref: privaterttb2
+  publicsg1:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: public security group 1
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 443
+        ToPort: 443
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+        CidrIp: 0.0.0.0/0
+      VpcId:
+        Ref: vpc1
+      Tags:
+      - Key: Name
+        Value: publicsg1
+  publicsg2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: public security group 2
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+        CidrIp: 0.0.0.0/0
+      VpcId:
+        Ref: vpc2
+      Tags:
+      - Key: Name
+        Value: publicsg2
+  webinstance1:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz
+      SubnetId:
+        Ref: primarysubnet1
+      KeyName: laptop
+      ImageId:
+        Ref: targetimageid1
+      InstanceType: t2.micro
+      Monitoring: 'false'
+      SecurityGroupIds:
+      - Ref: publicsg1
+      Tags:
+      - Key: Name
+        Value: webinstance1
+  webinstance2:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone:
+        Ref: targetaz2
+      SubnetId:
+        Ref: secondarysubnet1
+      KeyName: laptop
+      ImageId:
+        Ref: targetimageid1
+      InstanceType: t2.micro
+      Monitoring: 'false'
+      SecurityGroupIds:
+      - Ref: publicsg2
+      Tags:
+      - Key: Name
+        Value: webinstance2
