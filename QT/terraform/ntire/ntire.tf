@@ -134,7 +134,7 @@ resource "aws_instance" "webinstance" {
   ami                         = "ami-0d87749f74c9b9ea7"
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.websubnet[0].id
-  security_groups             = [aws_security_group.websg.id]
+  vpc_security_group_ids = [aws_security_group.websg.id]
   associate_public_ip_address = true
   key_name                    = "laptop"
 }
