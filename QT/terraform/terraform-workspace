@@ -1,0 +1,8 @@
+terraform workspace list
+terraform workspace show
+
+#below command to create new workspace
+terraform workspace new qa
+
+terraform workspace select default
+terraform workspace select qa
