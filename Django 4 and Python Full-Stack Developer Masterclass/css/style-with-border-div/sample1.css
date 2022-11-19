@@ -1,0 +1,12 @@
+body {
+    background-color: aqua;
+}
+div {
+    background-color: chartreuse;
+    border: 2px;
+    border-color: blue;
+    border-style: dashed
+}
+span {
+    background-color: brown;
+}
