@@ -10,4 +10,4 @@
     register: file_list
   - name: print result
     ansible.builtin.debug:
-      var: file_list
+      var: file_list.files
