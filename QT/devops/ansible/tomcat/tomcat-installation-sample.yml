@@ -45,3 +45,7 @@
         mode: u+x
       with_items:
         - "{{ file_list.files }}"
+    - name: Create a systemd Unit File
+      ansible.builtin.copy:
+        src: ubuntu-tomcat.service
+        dest: /etc/systemd/system/tomcat.service
