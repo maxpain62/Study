@@ -1,0 +1,81 @@
+---
+- name: install lamp stack in ubuntu and centos
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: update repository
+      ansible.builtin.apt:
+        update_cache: yes
+      when: ansible_facts['distribution'] == "Ubuntu"
+      
+    - name: install apache2 and php
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apache2
+        - php
+        - libapache2-mod-php
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+#    - name: install apache2
+#      ansible.builtin.apt:
+#        name: apache2
+#        state: present
+#      when: ansible_facts['distribution'] == "Ubuntu"
+#    - name: install php
+#      ansible.builtin.apt:
+#        name: php
+#        state: present
+#      when: ansible_facts['distribution'] == "Ubuntu"
+#    - name: install php dependencies
+#      ansible.builtin.apt:
+#        name: libapache2-mod-php
+#        state: present
+#      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: install httpd and php
+      ansible.builtin.yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - httpd
+        - php
+        - php-mysql
+      when: ansible_facts['distribution'] == "CentOS"
+
+#    - name: install httpd
+#      ansible.builtin.yum:
+#        name: httpd
+#        state: present
+#      when: ansible_facts['distribution'] == "CentOS"
+#    - name: install php
+#      ansible.builtin.yum:
+#        name: php
+#        state: present
+#      when: ansible_facts['distribution'] == "CentOS"
+#    - name: install php dependencies
+#      ansible.builtin.yum:
+#        name: php-mysql
+#        state: present
+#      when: ansible_facts['distribution'] == "CentOS"
+
+    - name: copy php file
+      ansible.builtin.copy:
+        src: info.php
+        dest: /var/www/html/info.php
+
+    - name: start and enable apache2
+      ansible.builtin.systemd:
+        name: apache2
+        state: started
+        enabled: true
+      when: ansible_facts['distribution'] == "Ubuntu"
+
+    - name: start and enable httpd
+      ansible.builtin.systemd:
+        name: httpd
+        state: started
+        enabled: true
+      when: ansible_facts['distribution'] == "CentOS"
