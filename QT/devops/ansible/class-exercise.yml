@@ -36,10 +36,7 @@
       ansible.builtin.yum:
         name: "{{ item }}"
         state: present
-      loop:
-        - httpd
-        - php
-        - php-mysql
+      loop: "{{ packages_centos }}"
       when: ansible_facts['distribution'] == "CentOS"
 
 #    - name: install httpd

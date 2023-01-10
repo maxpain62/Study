@@ -1,0 +1,4 @@
+packages_centos:
+    - httpd
+    - php
+    - php-mysql
