@@ -32,6 +32,7 @@
         path: "{{ link_destination }}"
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
+        recurse: yes
     - name: find and display
       ansible.builtin.find:
         paths: /opt/tomcat/latest/bin/
