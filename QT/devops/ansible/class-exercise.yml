@@ -20,24 +20,30 @@
       ansible.builtin.yum:
         name: "{{ item }}"
         state: present
-      loop: "{{ packages_centos }}"
+      loop: "{{ packages }}"
       when: ansible_facts['distribution'] == "CentOS"
 
     - name: copy php file
       ansible.builtin.copy:
         src: info.php
         dest: /var/www/html/info.php
-
-    - name: start and enable apache2
+    
+    - name: start and enable service
       ansible.builtin.systemd:
-        name: apache2
+        name: "{{ service_name }}"
         state: started
         enabled: true
-      when: ansible_facts['distribution'] == "Ubuntu"
 
-    - name: start and enable httpd
-      ansible.builtin.systemd:
-        name: httpd
-        state: started
-        enabled: true
-      when: ansible_facts['distribution'] == "CentOS"
+#    - name: start and enable apache2
+#      ansible.builtin.systemd:
+#        name: apache2
+#        state: started
+#        enabled: true
+#      when: ansible_facts['distribution'] == "Ubuntu"
+
+#    - name: start and enable httpd
+#      ansible.builtin.systemd:
+#        name: httpd
+#        state: started
+#        enabled: true
+#      when: ansible_facts['distribution'] == "CentOS"
