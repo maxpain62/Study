@@ -32,3 +32,14 @@
         path: "{{ link_destination }}"
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
+    - name: find and display
+      ansible.builtin.find:
+        paths: /opt/tomcat/latest/bin/
+        patterns: "*.sh"
+      register: file_list
+    - name: change permission
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        mode: u+x
+      with_items:
+        - "{{ file_list.files }}"
