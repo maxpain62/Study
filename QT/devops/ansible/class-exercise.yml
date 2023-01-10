@@ -33,17 +33,3 @@
         name: "{{ service_name }}"
         state: started
         enabled: true
-
-#    - name: start and enable apache2
-#      ansible.builtin.systemd:
-#        name: apache2
-#        state: started
-#        enabled: true
-#      when: ansible_facts['distribution'] == "Ubuntu"
-
-#    - name: start and enable httpd
-#      ansible.builtin.systemd:
-#        name: httpd
-#        state: started
-#        enabled: true
-#      when: ansible_facts['distribution'] == "CentOS"
