@@ -1,0 +1,48 @@
+---
+- name: install and configure java
+  hosts: all
+  become: yes
+  tasks:
+    - name: install java
+      ansible.builtin.package:
+        name: "{{ package }}"
+        state: present
+    - name: Create "{{ group_name }}" group
+      ansible.builtin.group:
+        name: "{{ group_name }}"
+        state: present
+    - name: Create "{{ user_name }}" user
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        group: tomcat
+        home: "{{ home_dir }}"
+        shell: "{{ user_shell }}"
+    - name: download and unzip
+      ansible.builtin.unarchive:
+        remote_src: yes
+        src: "{{ tomcat_url }}"
+        dest: "{{ destination }}"
+    - name: create synlinm 
+      ansible.builtin.file:
+        src: "{{ destination }}"
+        dest: "{{ link_destination }}"
+        state: link
+    - name: change ownership of tomcat
+      ansible.builtin.file:
+        path: "{{ link_destination }}"
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
+    - name: change permission of tomcat file
+      
+      
+
+    - name: Create a systemd Unit File
+      ansible.builtin.copy:
+        src: ubuntu-tomcat.service
+        dest: /etc/systemd/system/tomcat.service
+    - name: start and enable tomcat
+      ansible.builtin.systemd:
+        name: tomcat.service
+        state: started
+        daemon_reload: yes
+        enabled: yes

@@ -1,0 +1,7 @@
+group_name: tomcat
+user_name: tomcat
+home_dir: /opt/tomcat
+user_shell: /bin/false
+source_url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9.0.70.tar.gz
+destination: /opt/tomcat
+link_destination: /opt/tomcat/latest
