@@ -47,8 +47,9 @@
         - "{{ file_list.files }}"
     - name: Create a systemd Unit File
       ansible.builtin.copy:
-        src: ubuntu-tomcat.service
+        src: "{{ service_file }}"
         dest: /etc/systemd/system/tomcat.service
+
     - name: start and enable tomcat
       ansible.builtin.systemd:
         name: tomcat.service
