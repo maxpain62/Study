@@ -1,1 +1,2 @@
 package: default-jdk
+service_file: ubuntu-tomcat.service

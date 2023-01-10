@@ -1,1 +1,2 @@
 package: java-1.8.0-openjdk-devel
+service_file: centos-tomcat.service
