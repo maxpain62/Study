@@ -1,0 +1,13 @@
+---
+- name: install and configure java
+  hosts: all
+  become: yes
+  tasks:
+  - name: find and display
+    ansible.builtin.find:
+      paths: /opt/tomcat/latest/bin/
+      patterns: "*.sh"
+    register: file_list
+  - name: print result
+    ansible.builtin.debug:
+      var: file_list
