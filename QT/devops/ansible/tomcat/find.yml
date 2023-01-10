@@ -8,6 +8,10 @@
       paths: /opt/tomcat/latest/bin/
       patterns: "*.sh"
     register: file_list
-  - name: print result
-    ansible.builtin.debug:
-      var: file_list.files.[{path}]
+  - name: adding file to list
+    no_logs: true
+    set_facts:
+      Files: "{{[ item.path ]}}"
+    with_items: "{{ file_list.files }}"
+
+  - debug: var=Files
