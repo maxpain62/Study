@@ -30,9 +30,10 @@
     - name: change ownership of tomcat
       ansible.builtin.file:
         path: "{{ link_destination }}"
+        recurse: yes
+        state: directory
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
-        recurse: yes
     - name: find and display
       ansible.builtin.find:
         paths: /opt/tomcat/latest/bin/
