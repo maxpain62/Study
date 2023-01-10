@@ -32,17 +32,3 @@
         path: "{{ link_destination }}"
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
-    - name: change permission of tomcat file
-      
-      
-
-    - name: Create a systemd Unit File
-      ansible.builtin.copy:
-        src: ubuntu-tomcat.service
-        dest: /etc/systemd/system/tomcat.service
-    - name: start and enable tomcat
-      ansible.builtin.systemd:
-        name: tomcat.service
-        state: started
-        daemon_reload: yes
-        enabled: yes
