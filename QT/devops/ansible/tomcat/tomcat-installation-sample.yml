@@ -20,7 +20,7 @@
     - name: download and unzip
       ansible.builtin.unarchive:
         remote_src: yes
-        src: "{{ tomcat_url }}"
+        src: "{{ source_url }}"
         dest: "{{ destination }}"
     - name: create synlinm 
       ansible.builtin.file:
