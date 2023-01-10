@@ -21,10 +21,10 @@
       ansible.builtin.unarchive:
         remote_src: yes
         src: "{{ source_url }}"
-        dest: "{{ destination }}"
+        dest: "{{ download_destination }}"
     - name: create synlinm 
       ansible.builtin.file:
-        src: "{{ destination }}"
+        src: "{{ link_source }}"
         dest: "{{ link_destination }}"
         state: link
     - name: change ownership of tomcat
