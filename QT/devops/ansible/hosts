@@ -1,0 +1,9 @@
+[all]
+lamp-centos
+lamp-ubuntu
+
+[ubuntu]
+lamp-ubuntu
+
+[centos]
+lamp-centos

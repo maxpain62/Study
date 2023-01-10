@@ -3,6 +3,9 @@
   hosts: all
   become: yes
   tasks:
+  vars:
+    packages: 
+
 
     - name: update repository
       ansible.builtin.apt:
@@ -13,10 +16,7 @@
       ansible.builtin.apt:
         name: "{{ item }}"
         state: present
-      loop:
-        - apache2
-        - php
-        - libapache2-mod-php
+      loop: "{{ packages }}"
       when: ansible_facts['distribution'] == "Ubuntu"
 
 #    - name: install apache2
