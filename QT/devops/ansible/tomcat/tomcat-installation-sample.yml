@@ -49,10 +49,19 @@
       ansible.builtin.copy:
         src: "{{ service_file }}"
         dest: /etc/systemd/system/tomcat.service
-
     - name: start and enable tomcat
       ansible.builtin.systemd:
         name: tomcat.service
         state: started
         daemon_reload: yes
         enabled: yes
+    - name: Configure Tomcat web mgmt user
+      ansible.builtin.copy:
+        src: tomcat-users.xml
+        dest: /opt/tomcat/latest/conf/tomcat-users.xml
+    - name: configure manager/META-INF/context.xml and host-manager/META-INF/context.xml
+      ansible.builtin.copy:
+        src: context.xml
+        dest: "{{ item }}"
+      loop: "{{ context_destination }}"
+      

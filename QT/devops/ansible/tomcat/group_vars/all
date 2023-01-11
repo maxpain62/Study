@@ -6,3 +6,6 @@ source_url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.70/bin/apache-tomcat-9
 download_destination: /opt/tomcat/
 link_source: /opt/tomcat/apache-tomcat-9.0.70
 link_destination: /opt/tomcat/latest
+context_destination:
+  - /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+  - /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
