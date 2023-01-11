@@ -51,11 +51,11 @@
         dest: /etc/systemd/system/tomcat.service
     - name: Configure Tomcat web mgmt user
       ansible.builtin.copy:
-        src: tomcat-users.xml
+        src: tomcat-users
         dest: /opt/tomcat/latest/conf/tomcat-users.xml
     - name: configure manager/META-INF/context.xml and host-manager/META-INF/context.xml
       ansible.builtin.copy:
-        src: context.xml
+        src: context
         dest: "{{ item }}"
       loop: "{{ context_destination }}"
     - name: start and enable tomcat
