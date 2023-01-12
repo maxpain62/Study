@@ -10,7 +10,7 @@
     register: file_list
   - name: print file list
     ansible.builtin.debug:
-      var: file_list
+      var: file_list.files.list
   - name: change permission
     ansible.builtin.file:
       path: "{{ item.path }}"
