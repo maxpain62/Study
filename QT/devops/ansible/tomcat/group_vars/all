@@ -11,7 +11,7 @@ service_file_dest: /etc/systemd/system/tomcat.service
 tomcat_web_users_file: tomcat-users.j2
 tomcat_web_users_file_destination: /opt/tomcat/latest/conf/tomcat-users.xml
 tomcat_web_user_name: admin
-tomcat_web_password: admin_password
+tomcat_web_password: password
 context_destination:
   - /opt/tomcat/latest/webapps/manager/META-INF/context.xml
   - /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
