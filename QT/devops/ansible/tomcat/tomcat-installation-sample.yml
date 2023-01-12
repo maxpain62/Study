@@ -30,7 +30,7 @@
     - name: Create a systemd Unit File
       ansible.builtin.template:
         src: "{{ service_file }}"
-        dest: /etc/systemd/system/tomcat.service
+        dest: "{{ service_file_dest }}"
     - name: Configure Tomcat web mgmt user
       ansible.builtin.template:
         src: "{{ tomcat_web_users_file }}"
