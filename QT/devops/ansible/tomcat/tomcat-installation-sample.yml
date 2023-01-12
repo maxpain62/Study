@@ -46,7 +46,7 @@
       with_items:
         - "{{ file_list.files }}"
     - name: Create a systemd Unit File
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: "{{ service_file }}"
         dest: /etc/systemd/system/tomcat.service
     - name: Configure Tomcat web mgmt user
