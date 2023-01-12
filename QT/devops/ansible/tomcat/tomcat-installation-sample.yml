@@ -37,12 +37,6 @@
         dest: "{{ tomcat_web_users_file_destination }}"
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
-
-    - name: check stat
-      ansible.builtin.stat:
-        path: "{{ tomcat_web_users_file_destination }}"
-      register: tomcat_stat
-
     - name: configure manager/META-INF/context.xml and host-manager/META-INF/context.xml
       ansible.builtin.copy:
         src: context
@@ -50,7 +44,6 @@
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
       loop: "{{ context_destination }}"
-      
     - name: change ownership of tomcat
       ansible.builtin.file:
         path: "{{ link_destination }}"
@@ -72,10 +65,6 @@
     - name: start and enable tomcat
       ansible.builtin.systemd:
         name: tomcat.service
-        state: started
+        state: restarted
         daemon_reload: yes
         enabled: yes
-
-    - name: print tomcat stat
-      debug:
-        var: tomcat_stat
