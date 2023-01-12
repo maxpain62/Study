@@ -35,6 +35,9 @@
       ansible.builtin.template:
         src: "{{ tomcat_web_users_file }}"
         dest: "{{ tomcat_web_users_file_destination }}"
+    - name: check stat
+      ansible.builtin.stat:
+        path: "{{ tomcat_web_users_file_destination }}"
     - name: configure manager/META-INF/context.xml and host-manager/META-INF/context.xml
       ansible.builtin.copy:
         src: context
