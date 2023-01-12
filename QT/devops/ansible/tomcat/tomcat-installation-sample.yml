@@ -27,6 +27,19 @@
         src: "{{ link_source }}"
         dest: "{{ link_destination }}"
         state: link
+    - name: Create a systemd Unit File
+      ansible.builtin.template:
+        src: "{{ service_file }}"
+        dest: /etc/systemd/system/tomcat.service
+    - name: Configure Tomcat web mgmt user
+      ansible.builtin.template:
+        src: "{{ tomcat_web_users_file }}"
+        dest: "{{ tomcat_web_users_file_destination }}"
+    - name: configure manager/META-INF/context.xml and host-manager/META-INF/context.xml
+      ansible.builtin.copy:
+        src: context
+        dest: "{{ item }}"
+      loop: "{{ context_destination }}"
     - name: change ownership of tomcat
       ansible.builtin.file:
         path: "{{ link_destination }}"
@@ -45,19 +58,6 @@
         mode: u+x
       with_items:
         - "{{ file_list.files }}"
-    - name: Create a systemd Unit File
-      ansible.builtin.template:
-        src: "{{ service_file }}"
-        dest: /etc/systemd/system/tomcat.service
-    - name: Configure Tomcat web mgmt user
-      ansible.builtin.template:
-        src: "{{ tomcat_web_users_file }}"
-        dest: "{{ tomcat_web_users_file_destination }}"
-    - name: configure manager/META-INF/context.xml and host-manager/META-INF/context.xml
-      ansible.builtin.copy:
-        src: context
-        dest: "{{ item }}"
-      loop: "{{ context_destination }}"
     - name: start and enable tomcat
       ansible.builtin.systemd:
         name: tomcat.service
