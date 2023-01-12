@@ -14,7 +14,7 @@
     - name: Create "{{ user_name }}" user
       ansible.builtin.user:
         name: "{{ user_name }}"
-        group: tomcat
+        group: "{{ group_name }}"
         home: "{{ home_dir }}"
         shell: "{{ user_shell }}"
     - name: download and unzip
@@ -35,6 +35,9 @@
       ansible.builtin.template:
         src: "{{ tomcat_web_users_file }}"
         dest: "{{ tomcat_web_users_file_destination }}"
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
+        
     - name: check stat
       ansible.builtin.stat:
         path: "{{ tomcat_web_users_file_destination }}"
