@@ -37,7 +37,7 @@
         dest: "{{ tomcat_web_users_file_destination }}"
         owner: "{{ user_name }}"
         group: "{{ group_name }}"
-        
+
     - name: check stat
       ansible.builtin.stat:
         path: "{{ tomcat_web_users_file_destination }}"
@@ -47,7 +47,10 @@
       ansible.builtin.copy:
         src: context
         dest: "{{ item }}"
+        owner: "{{ user_name }}"
+        group: "{{ group_name }}"
       loop: "{{ context_destination }}"
+      
     - name: change ownership of tomcat
       ansible.builtin.file:
         path: "{{ link_destination }}"
