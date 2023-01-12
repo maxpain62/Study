@@ -38,6 +38,8 @@
     - name: check stat
       ansible.builtin.stat:
         path: "{{ tomcat_web_users_file_destination }}"
+      register: tomcat_stat
+
     - name: configure manager/META-INF/context.xml and host-manager/META-INF/context.xml
       ansible.builtin.copy:
         src: context
@@ -67,3 +69,7 @@
         state: started
         daemon_reload: yes
         enabled: yes
+
+    - name: print tomcat stat
+      debug:
+        var: tomcat_stat
