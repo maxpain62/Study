@@ -53,10 +53,7 @@
   <user username="both" password="<must-be-changed>" roles="tomcat,role1"/>
   <user username="role1" password="<must-be-changed>" roles="role1"/>
 -->
-</tomcat-users>
-
-<tomcat-users>
-   <role rolename="admin-gui"/>
-   <role rolename="manager-gui"/>
-   <user username="{{ tomcat_web_user_name }}" password="{{ tomcat_web_password }}" roles="admin-gui"/>
+    <role rolename="admin-gui"/>
+    <role rolename="manager-gui"/>
+    <user username="{{ tomcat_mgmt_user_name }}" password="{{ tomcat_mgmt_password }}" roles="admin-gui,manager-gui"/>
 </tomcat-users>
