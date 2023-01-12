@@ -50,9 +50,9 @@
         src: "{{ service_file }}"
         dest: /etc/systemd/system/tomcat.service
     - name: Configure Tomcat web mgmt user
-      ansible.builtin.copy:
-        src: tomcat-users
-        dest: /opt/tomcat/latest/conf/tomcat-users.xml
+      ansible.builtin.template:
+        src: "{{ tomcat_web_users_file }}}"
+        dest: "{{ tomcat_web_users_file_destination }}"
     - name: configure manager/META-INF/context.xml and host-manager/META-INF/context.xml
       ansible.builtin.copy:
         src: context

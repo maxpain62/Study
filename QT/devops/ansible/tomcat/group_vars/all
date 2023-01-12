@@ -7,6 +7,10 @@ download_destination: /opt/tomcat/
 link_source: /opt/tomcat/apache-tomcat-9.0.70
 link_destination: /opt/tomcat/latest
 service_file: tomcat.service.j2
+tomcat_web_users_file: tomcat-users.j2
+tomcat_web_users_file_destination: /opt/tomcat/latest/conf/tomcat-users.xml
+tomcat_web_user_name: admin
+tomcat_web_password: admin_password
 context_destination:
   - /opt/tomcat/latest/webapps/manager/META-INF/context.xml
   - /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
