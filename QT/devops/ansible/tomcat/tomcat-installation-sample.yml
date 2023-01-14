@@ -28,8 +28,8 @@
         dest: "{{ link_destination }}"
         state: link
     - name: Create a systemd Unit File
-      ansible.builtin.copy:
-        src: tomcat.service
+      ansible.builtin.template:
+        src: "{{ service_file }}"
         dest: "{{ service_file_dest }}"
     - name: Configure Tomcat web mgmt user
       ansible.builtin.template:
