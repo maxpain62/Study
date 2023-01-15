@@ -46,7 +46,7 @@
         dest: /root/cri-dockerd/bin
         state: directory
     - name: build cri-dockerd
-      ansible.builtin.command: /usr/local/sbin/go build -o /root/cri-dockerd/bin/cri-dockerd
+      ansible.builtin.command: /root/.go/bin/go build -o /root/cri-dockerd/bin/cri-dockerd
       args:
         chdir: /root/cri-dockerd/
     - name: install cri-dockerd to /usr/local/bin/
