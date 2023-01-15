@@ -26,9 +26,9 @@
       loop:
         - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         - echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
-    - name: update repo
-      ansible.builtin.apt:
-        update_cache: true
+#    - name: update repo
+#      ansible.builtin.apt:
+#        update_cache: true
     - name: download cri-dockerd
       ansible.builtin.get_url:
         url: https://storage.googleapis.com/golang/getgo/installer_linux
@@ -64,3 +64,11 @@
         state: started
         enabled: true
         daemon_reload: true
+    - name: install kubernetes packages
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: latest
