@@ -1,4 +1,8 @@
-docker_gpg_key_src: docker.gpg
-docker_gpg_key_dest: /etc/apt/keyrings/docker.gpg
-kubernetes_gpg_key_src: kubernetes-archive-keyring.gpg 
-kubernetes_gpg_key_dest: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+#docker_gpg_key_src: docker.gpg
+#docker_gpg_key_dest: /etc/apt/keyrings/docker.gpg
+#kubernetes_gpg_key_src: kubernetes-archive-keyring.gpg 
+#kubernetes_gpg_key_dest: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+gpg_key_src:
+  - docker.gpg
+  - kubernetes-archive-keyring.gpg
+gpg_key_dest: /etc/apt/keyrings/
