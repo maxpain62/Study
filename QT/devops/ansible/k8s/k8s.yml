@@ -3,13 +3,12 @@
   hosts: all
   become: true
   tasks:
-    - name: apt update
+    - name: apt update install packages to allow apt to use a repository over HTTPS
       ansible.builtin.apt:
         update_cache: true
-    - name: install packages to allow apt to use a repository over HTTPS
-      ansible.builtin.apt:
         name:
           - ca-certificates
           - curl
           - gnupg 
           - lsb-release
+          
