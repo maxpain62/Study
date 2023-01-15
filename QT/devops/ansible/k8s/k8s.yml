@@ -16,14 +16,6 @@
       ansible.builtin.file:
         dest: /etc/apt/keyrings
         state: directory
-#    - name: copy docker gpg keys
-#      ansible.builtin.copy:
-#        src: "{{ docker_gpg_key_src }}"
-#        dest: "{{ docker_gpg_key_dest }}"
-#    - name: copy k8s gpg keys
-#      ansible.builtin.copy:
-#        src: "{{ kubernetes_gpg_key_src }}"
-#        dest: "{{ kubernetes_gpg_key_dest }}"
     - name: copy gpg keys
       ansible.builtin.copy:
         src: "{{ item }}"
