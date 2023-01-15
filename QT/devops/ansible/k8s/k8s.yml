@@ -36,3 +36,7 @@
         mode: a+x
     - name: execute installer_linux
       ansible.builtin.command: /root/installer_linux
+    - name: clone git command
+      ansible.builtin.git:
+        repo: 'https://github.com/Mirantis/cri-dockerd.git'
+        dest: /root/
