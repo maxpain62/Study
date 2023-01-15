@@ -58,17 +58,21 @@
         dest: /etc/systemd/system/
         remote_src: true
       loop: "{{ cri_docker_systemd_files }}"
+    - name: install docker and kubernetes packages
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
+          - kubelet
+          - kubeadm
+          - kubectl
+        state: latest
     - name: enable and start cri-dockerd 
       ansible.builtin.systemd:
         name: cri-docker.service
         state: started
         enabled: true
         daemon_reload: true
-    - name: install kubernetes packages
-      ansible.builtin.apt:
-        update_cache: true
-        name:
-          - kubelet
-          - kubeadm
-          - kubectl
-        state: latest
