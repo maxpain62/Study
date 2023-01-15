@@ -16,7 +16,15 @@
       ansible.builtin.file:
         dest: /etc/apt/keyrings
         state: directory
-    - name: download and convert gpg key to keyrings
+    - name: copy docker gpg keys
+      ansible.builtin.copy:
+        src: "{{ docker_gpg_key_src }}"
+        dest: "{{ docker_gpg_key_dest }}"
+    - name: copy k8s gpg keys
+      ansible.builtin.copy:
+        src: "{{ kubernetes_gpg_key_src }}"
+        dest: "{{ kubernetes_gpg_key_dest }}"
+    - name: add repositories
       ansible.builtin.command: "{{ item }}"
       loop:
         - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
