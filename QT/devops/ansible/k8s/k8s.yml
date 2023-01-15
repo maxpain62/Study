@@ -17,7 +17,7 @@
         dest: /etc/apt/keyrings
         state: directory
     - name: download and convert gpg key to keyrings
-      ansible.builtin.shell: "{{ item }}"
+      ansible.builtin.command: "{{ item }}"
       loop:
         - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
         - curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
