@@ -1,0 +1,10 @@
+---
+- name: create file and insert line with variable
+  hosts: k8s
+  become: true
+  tasks:
+    - name: create file and insert line with variable
+      ansible.builtin.lineinfile:
+        create: yes
+        path: /root/test
+        line: $HOSTNAME
