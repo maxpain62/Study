@@ -58,3 +58,9 @@
         dest: /etc/systemd/system/
         remote_src: true
       loop: "{{ cri_docker_systemd_files }}"
+    - name: enable and start cri-dockerd 
+      ansible.builtin.systemd:
+        name: cri-dockerd.service
+        state: started
+        enabled: true
+        daemon_reload: true
