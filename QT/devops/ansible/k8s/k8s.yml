@@ -18,5 +18,5 @@
         state: directory
     - name: download gpg key
       ansible.builtin.get_url: 
-        src: https://download.docker.com/linux/ubuntu/gpg
+        url: https://download.docker.com/linux/ubuntu/gpg
         dest: /etc/apt/keyrings/
