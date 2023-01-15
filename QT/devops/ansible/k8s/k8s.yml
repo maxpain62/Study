@@ -41,3 +41,12 @@
         repo: 'https://github.com/Mirantis/cri-dockerd.git'
         dest: /root/cri-dockerd
         clone: true
+    - name: create bin dir in cri-dockerd dir
+      ansible.builtin.file:
+        dest: /root/cri-dockerd/bin
+        state: directory
+    - name: build cri-dockerd
+      ansible.builtin.command: go build -o /root/cri-dockerd/bin/cri-dockerd
+    - name: install cri-dockerd to /usr/local/bin/
+      ansible.builtin.command: /usr/bin/install -o root -g root -m 0755 bin/cri-dockerd /usr/local/bin/cri-dockerd
+    
