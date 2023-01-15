@@ -20,4 +20,4 @@
       ansible.builtin.copy: 
         remote_src: true
         src: https://download.docker.com/linux/ubuntu/gpg
-        dest: /etc/apt/keyrings/gpg
+        dest: /etc/apt/keyrings/
