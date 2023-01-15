@@ -35,6 +35,6 @@
         dest: /root/
         mode: a+x
     - name: execute installer_linux
-      ansible.builtin.shell: installer_linux
+      ansible.builtin.command: installer_linux
       args:
         chdir: /root/
