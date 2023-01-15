@@ -11,4 +11,7 @@
           - curl
           - gnupg 
           - lsb-release
-          
+    - name: create directory
+      ansible.builtin.file:
+        path: /etc/apt/keyrings
+        state: directory
