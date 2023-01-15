@@ -7,4 +7,4 @@
       ansible.builtin.lineinfile:
         create: yes
         path: /root/test
-        line: $HOSTNAME
+        line: \g<1>{{ hostname }}
