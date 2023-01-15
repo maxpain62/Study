@@ -16,10 +16,6 @@
       ansible.builtin.file:
         dest: /etc/apt/keyrings
         state: directory
-    - name: download gpg key
-      ansible.builtin.get_url: 
-        url: https://download.docker.com/linux/ubuntu/gpg
-        dest: /etc/apt/keyrings/
     - name: download and convert gpg key to keyrings
       ansible.builtin.shell: "{{ item }}"
       loop:
