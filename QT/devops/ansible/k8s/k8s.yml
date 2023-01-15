@@ -53,5 +53,5 @@
       ansible.builtin.command: /usr/bin/install -o root -g root -m 0755 /root/cri-dockerd/bin/cri-dockerd /usr/local/bin/cri-dockerd
     - name: create systemd file
       ansible.builtin.copy:
-        src: /cri-dockerd/packaging/systemd/*
+        src: /root/cri-dockerd/packaging/systemd/*
         dest: /etc/systemd/system/
