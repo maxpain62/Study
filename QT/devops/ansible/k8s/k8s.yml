@@ -54,7 +54,7 @@
     - name: create systemd file
       ansible.builtin.copy:
         src: /root/cri-dockerd/packaging/systemd/"{{ item }}"
-        dest: /etc/systemd/system/
+        dest: /etc/systemd/system/"{{ item }}"
       loop:
         - cri-docker.service
         - cri-docker.socket
