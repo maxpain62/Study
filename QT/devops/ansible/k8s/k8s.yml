@@ -55,5 +55,5 @@
       ansible.builtin.copy:
         src: "{{ item }}"
         dest: /etc/systemd/system/
-        remote_src: false
+        remote_src: true``
       loop: "{{ cri_docker_systemd_files }}"
