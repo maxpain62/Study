@@ -1,6 +1,6 @@
 ---
 - name: install and deploy k8s
-  hosts: all
+  hosts: k8s
   become: true
   tasks:
     - name: apt update install packages to allow apt to use a repository over HTTPS
