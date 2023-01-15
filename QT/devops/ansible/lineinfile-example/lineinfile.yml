@@ -7,4 +7,4 @@
       ansible.builtin.lineinfile:
         create: yes
         path: /root/test
-        line: \g<1>{{ hostname }}
+        line: "Path is {{ ansible_env.PATH }}"
