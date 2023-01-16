@@ -93,8 +93,9 @@
         state: latest
     - name: hold kubernetes pkgs
       ansible.builtin.dpkg_selections:
-        name:
-          - kubelet 
-          - kubeadm 
-          - kubectl
+        name: "{{ item }}"
         selection: hold
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl
