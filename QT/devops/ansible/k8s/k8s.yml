@@ -21,14 +21,6 @@
         src: "{{ item }}"
         dest: "{{ gpg_key_dest }}"
       loop: "{{ gpg_key_src }}"
-#    - name: add repositories
-#      ansible.builtin.command: "{{ item }}"
-#      loop:
-#        - echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-#        - echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
-#    - name: update repo
-#      ansible.builtin.apt:
-#        update_cache: true
     - name: add repository
       ansible.builtin.copy:
         src: "{{ item }}"
