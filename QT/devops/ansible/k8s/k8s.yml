@@ -36,6 +36,14 @@
       loop:
         - docker.list
         - kubernetes.list
+    - name: install docker packages
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose-plugin
     - name: download cri-dockerd
       ansible.builtin.get_url:
         url: https://storage.googleapis.com/golang/getgo/installer_linux
@@ -65,18 +73,6 @@
         dest: /etc/systemd/system/
         remote_src: true
       loop: "{{ cri_docker_systemd_files }}"
-    - name: install docker and kubernetes packages
-      ansible.builtin.apt:
-        update_cache: true
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-compose-plugin
-          - kubelet
-          - kubeadm
-          - kubectl
-        state: latest
     - name: enable and start cri-dockerd 
       ansible.builtin.systemd:
         name: cri-docker.service
