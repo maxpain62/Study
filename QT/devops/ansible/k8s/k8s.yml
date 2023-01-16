@@ -76,8 +76,8 @@
     - name: configure cri-docker.service 
       ansible.builtin.lineinfile:
         path: /etc/systemd/system/cri-docker.service
-        search_string: '/usr/bin/cri-dockerd'
-        line: '/usr/local/bin/cri-dockerd'
+        search_string: 'ExecStart=/usr/bin/cri-dockerd --container-runtime-endpoint fd://'
+        line: 'ExecStart=/usr/local/bin/cri-dockerd --container-runtime-endpoint fd://'
     - name: enable and start cri-dockerd 
       ansible.builtin.systemd:
         name: cri-docker.service
