@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: regapp-container
-          image: maxpain62/regapp:latest
+          image: maxpain62/regapp:160120230915
           ports:
             - containerPort: 8080
               protocol: TCP
