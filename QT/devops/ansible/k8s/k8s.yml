@@ -84,3 +84,10 @@
         state: started
         enabled: true
         daemon_reload: true
+    - name: install kubernetes pkgs
+      ansible.builtin.apt:
+        name:
+          - kubelet 
+          - kubeadm 
+          - kubectl
+        state: latest
