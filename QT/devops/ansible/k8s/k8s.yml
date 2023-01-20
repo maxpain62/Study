@@ -16,11 +16,15 @@
       ansible.builtin.file:
         dest: /etc/apt/keyrings
         state: directory
-    - name: copy gpg keys
-      ansible.builtin.copy:
-        src: "{{ item }}"
-        dest: "{{ gpg_key_dest }}"
-      loop: "{{ gpg_key_src }}"
+#    - name: copy gpg keys
+#      ansible.builtin.copy:
+#        src: "{{ item }}"
+#        dest: "{{ gpg_key_dest }}"
+#      loop: "{{ gpg_key_src }}"
+    - name: download gpg key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        keyring: /etc/apt/keyrings/docker.gpg
     - name: add repository
       ansible.builtin.copy:
         src: "{{ item }}"
