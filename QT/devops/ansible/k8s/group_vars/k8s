@@ -9,3 +9,4 @@ gpg_key_dest: /etc/apt/keyrings/
 cri_docker_systemd_files: 
   - /root/cri-dockerd/packaging/systemd/cri-docker.service
   - /root/cri-dockerd/packaging/systemd/cri-docker.socket
+architecture: amd64
