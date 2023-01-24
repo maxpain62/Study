@@ -3,20 +3,20 @@ apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata: 
   name: apache
-  spec:
-    maxReplicas: 10
-    minReplicas: 4
-    scaleTargetRef:
-      apiVersion: apps/v1
-      kind: Deployment
-      name: apache
-    metrics:
-      - type: Resource
-        resource: 
-          name: cpu
-          target:
-            averageUtilization: 50
-            type: Utilization
+spec:
+  maxReplicas: 10
+  minReplicas: 4
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: apache
+  metrics:
+    - type: Resource
+      resource: 
+        name: cpu
+        target:
+          averageUtilization: 50
+          type: Utilization
 ---
 apiVersion: apps/v1
 kind: Deployment
