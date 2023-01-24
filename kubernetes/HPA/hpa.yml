@@ -12,8 +12,9 @@ spec:
     kind: Deployment
     name: nginx-hpa-demo
   metrics: 
-    resource: 
-      name: CPU
-      target: 
-        type: Utilization
-        averageUtilization: 50
+    - type: Resource
+      resource: 
+        name: CPU
+        target: 
+          type: Utilization
+          averageUtilization: 50
