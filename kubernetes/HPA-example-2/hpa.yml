@@ -41,7 +41,7 @@ spec:
         - name: hpa-apache-container
           image: httpd
           ports:
-            - comtainerPort: 80
+            - containerPort: 80
               protocol: TCP  
 ---
 apiVersion: v1
