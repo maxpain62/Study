@@ -5,6 +5,19 @@ resource "aws_instance" "test" {
   associate_public_ip_address = true
   key_name                    = "terraform"
 
+  connection {
+    type = "ssh"
+    user = "ubuntu"
+    host     = self.public_ip
+    private_key = "/Study/QT/terraform/command-execution-with-terraform/id_rsa"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "touch /tmp/foo.txt",
+    ]
+  }
+
   tags = {
     "Name" = "test"
   }
