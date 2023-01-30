@@ -3,3 +3,8 @@ variable "target_region" {
     description = "enter target region"
     default = "ap-south-1"
 }
+
+variable "private_key_file" {
+    type = string
+    default = "/root/Study/QT/terraform/command-execution-with-terraform/id_rsa"
+}
