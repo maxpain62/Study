@@ -5,13 +5,6 @@ resource "aws_instance" "test" {
   associate_public_ip_address = true
   key_name                    = "laptop"
 
-  connection {
-    type     = "ssh"
-    user     = "root"
-    password = "ubuntu"
-    host     = self.public_ip
-  }
-
   provisioner "file" {
     source      = "/root/keys/id_rsa.pub"
     destination = "/root/.ssh/authorized_keys"
