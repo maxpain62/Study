@@ -3,12 +3,14 @@ resource "aws_instance" "test" {
   instance_type               = "t2.micro"
   vpc_security_group_ids      = ["sg-05349ad74b984768b"]
   associate_public_ip_address = true
-  key_name                    = "laptop"
+  key_name                    = "terraform"
 
-  provisioner "file" {
-    source      = "/root/keys/id_rsa.pub"
-    destination = "/root/.ssh/authorized_keys"
-  }
+    connection {
+      type     = "ssh"
+    user     = "root"
+    password = var.root_password
+    host     = self.public_ip
+    }
 
   tags = {
     "Name" = "test"
