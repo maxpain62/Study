@@ -12,10 +12,9 @@ resource "aws_instance" "test" {
     host     = self.public_ip
   }
 
-  provisioner "remote-exec" {
-    inline = [ 
-        "touch /root/test"      
-    ]
+  provisioner "file" {
+    source      = "/root/keys/id_rsa.pub"
+    destination = "/root/.ssh/authorized_keys"
   }
 
   tags = {
