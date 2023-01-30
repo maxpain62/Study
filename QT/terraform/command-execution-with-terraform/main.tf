@@ -5,13 +5,6 @@ resource "aws_instance" "test" {
   associate_public_ip_address = true
   key_name                    = "terraform"
 
-    connection {
-      type     = "ssh"
-    user     = "root"
-    password = var.root_password
-    host     = self.public_ip
-    }
-
   tags = {
     "Name" = "test"
   }
