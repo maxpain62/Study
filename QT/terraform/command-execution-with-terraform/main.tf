@@ -5,6 +5,19 @@ resource "aws_instance" "test" {
   associate_public_ip_address = true
   key_name                    = "laptop"
 
+  connection {
+    type     = "ssh"
+    user     = "root"
+    password = "ubuntu"
+    host     = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [ 
+        "touch /root/test"      
+    ]
+  }
+
   tags = {
     "Name" = "test"
   }
