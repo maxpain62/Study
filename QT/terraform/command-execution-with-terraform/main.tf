@@ -9,7 +9,7 @@ resource "aws_instance" "test" {
     type = "ssh"
     user = "ubuntu"
     host     = self.public_ip
-    private_key = "/root/Study/QT/terraform/command-execution-with-terraform/id_rsa"
+    private_key = "${file(var.private_key_file)}"
   }
 
   provisioner "remote-exec" {
