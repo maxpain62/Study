@@ -28,5 +28,5 @@ resource "null_resource" "webprovisoner" {
         "sudo apt install tree -y"
       ]
     }
-    depends_on = [ aws_instance.webec2 ]
+    depends_on = [ aws_instance.test ]
 }
