@@ -5,14 +5,14 @@ resource "aws_instance" "test" {
   associate_public_ip_address = true
   key_name                    = "terraform"
 
-  connection {
-    type = "ssh"
-    user = "ubuntu"
-    host     = self.public_ip
-    private_key = "${file(var.private_key_file)}"
-  }
-
   provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      host        = self.public_ip
+      private_key = file(var.private_key_file)
+    }
+
     inline = [
       "sudo apt update -y && sleep 5",
       "sudo apt install apache2 -y",
