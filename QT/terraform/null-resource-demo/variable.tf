@@ -11,6 +11,6 @@ variable "private_key_file" {
 
 variable "web-trigger" {
     type = string
-    defauly = "1.0"  
-    
+    default = "1.0"  
+
 }
