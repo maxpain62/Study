@@ -25,6 +25,7 @@ resource "null_resource" "webprovisoner" {
     source      = "/home/ubuntu/tomcat"
     destination = "/home/ubuntu/tomcat"
   }
+  depends_on = [ aws_instance.test ]
   
 }
 
@@ -45,5 +46,5 @@ resource "null_resource" "webprovisoner2" {
         "cd /home/ubuntu/tomcat/ && sudo ansible-playbook -i hosts tomcat-installation-sample.yml"
       ]
     }
-    depends_on = [ aws_instance.test ]
+    depends_on = [ null_resource.webprovisoner ]
 }
