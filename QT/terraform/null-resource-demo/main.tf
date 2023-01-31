@@ -25,7 +25,6 @@ resource "null_resource" "webprovisoner" {
       inline = [
         "sudo apt update",
         "sudo apt install nginx -y",
-        "sudo apt install tree -y"
       ]
     }
     depends_on = [ aws_instance.test ]
