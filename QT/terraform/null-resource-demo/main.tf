@@ -23,8 +23,7 @@ resource "null_resource" "webprovisoner" {
         host = aws_instance.test.public_ip 
       }
       inline = [
-        "sudo apt update",
-        "sudo apt install nginx -y",
+        "sudo apt update && sudo apt install software-properties-common && sudo add-apt-repository --yes --update ppa:ansible/ansible && sudo apt install ansible"
       ]
     }
     depends_on = [ aws_instance.test ]
