@@ -14,7 +14,7 @@ resource "aws_instance" "test" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo apt update",
+      "sudo apt update -y && sleep 5",
       "sudo apt install apache2 -y",
     ]
   }
