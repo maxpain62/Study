@@ -29,22 +29,22 @@ resource "null_resource" "webprovisoner" {
   
 }
 
-resource "null_resource" "webprovisoner2" {
-  triggers = {
-    running_number = var.web-trigger
-  }
+#resource "null_resource" "webprovisoner2" {
+#  triggers = {
+#    running_number = var.web-trigger
+#  }
 
-  provisioner "remote-exec" {
-      connection {
-        type = "ssh"
-        user = "ubuntu"
-        private_key = file("/root/Study/QT/terraform/command-execution-with-terraform/id_rsa")
-        host = aws_instance.test.public_ip 
-      }
-      inline = [
-        "sudo apt update -y && sudo apt install software-properties-common -y && sudo add-apt-repository --yes --update ppa:ansible/ansible && sudo apt install ansible -y",
-        "cd /home/ubuntu/tomcat/ && sudo ansible-playbook -i hosts tomcat-installation-sample.yml"
-      ]
-    }
-    depends_on = [ null_resource.webprovisoner ]
-}
+#  provisioner "remote-exec" {
+#      connection {
+#        type = "ssh"
+#        user = "ubuntu"
+#        private_key = file("/root/Study/QT/terraform/command-execution-with-terraform/id_rsa")
+#        host = aws_instance.test.public_ip 
+#      }
+#      inline = [
+#        "sudo apt update -y && sudo apt install software-properties-common -y && sudo add-apt-repository --yes --update ppa:ansible/ansible && sudo apt install ansible -y",
+#        "cd /home/ubuntu/tomcat/ && sudo ansible-playbook -i hosts tomcat-installation-sample.yml"
+#      ]
+#    }
+#    depends_on = [ null_resource.webprovisoner ]
+#}
