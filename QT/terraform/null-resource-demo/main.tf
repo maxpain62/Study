@@ -27,6 +27,7 @@ resource "null_resource" "webprovisoner" {
   depends_on = [ aws_instance.test ]
 }
 
+#below ansible is not working will create new one in terraform-with-ansible directory
 resource "null_resource" "webprovisoner2" {
   triggers = {
     running_number = var.web-trigger
