@@ -14,7 +14,6 @@ resource "null_resource" "webprovisoner" {
     triggers = {
     running_number = var.web-trigger
   }
-
   provisioner "file" {
       connection {
         type = "ssh"
@@ -25,8 +24,18 @@ resource "null_resource" "webprovisoner" {
     source      = "/home/ubuntu/tomcat"
     destination = "/home/ubuntu/tomcat"
   }
+
+  provisioner "file" {
+      connection {
+        type = "ssh"
+        user = "ubuntu"
+        private_key = file("/root/Study/QT/terraform/command-execution-with-terraform/id_rsa")
+        host = aws_instance.test.public_ip 
+      }
+    source      = "/home/ubuntu/id_rsa.pub"
+    destination = "/home/ubuntu/.ssh/authorized_keys"
+  }
   depends_on = [ aws_instance.test ]
-  
 }
 
 #resource "null_resource" "webprovisoner2" {
