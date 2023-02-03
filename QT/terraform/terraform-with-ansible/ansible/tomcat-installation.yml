@@ -41,4 +41,8 @@
       ansible.builtin.copy:
         src: context.xml
         dest: /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
-    
+    - name: start tomcat service
+      ansible.builtin.systemd:
+        name: tomcat.service
+        state: started
+        enables: true
