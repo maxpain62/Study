@@ -10,6 +10,19 @@ resource "aws_instance" "tomcat" {
   }
 }
 
+resource "null_resource" "adding_ansible_files" {
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("/home/ubuntu/Study/QT/terraform/terraform-with-ansible/terraform/terraform_key")
+      host        = aws_instance.tomcat.public_ip
+    }
+    provisioner "file" {
+        source = "/home/ubuntu/Study/QT/terraform/terraform-with-ansible/ansible"
+        destination = "/home/ubuntu/"    
+    }
+}
+
 resource "null_resource" "initial_setup" {
   provisioner "remote-exec" {
     connection {
@@ -24,7 +37,6 @@ resource "null_resource" "initial_setup" {
       "python3 get-pip.py --user",
       "python3 -m pip install --user ansible",
       "echo 'PATH=$PATH:/home/ubuntu/.local/bin' >> /home/ubuntu/.bashrc",
-      "source /home/ubuntu/.bashrc"
     ]
   }
 
@@ -32,3 +44,5 @@ resource "null_resource" "initial_setup" {
     aws_instance.tomcat
   ]
 }
+
+resource "null_resource" ""
