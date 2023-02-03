@@ -19,7 +19,9 @@ resource "null_resource" "initial_setup" {
       host        = aws_instance.tomcat.public_ip
     }
     inline = [
-      "curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py"
+      "curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py",
+      "echo ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCmNTDinVxsAL6fuZ3HW8o5jXXeOQQTfiEx7GVZFrBobFDY061MMIPHRvuJW/9ra+qARHfPLqteXsm9O1g9TM5B0QNmi41FZajy9Rk/FIvEfZ1gx5wFsVOzXb6BlyCgwqW5DYP7iTNYjYiOoxv7nHP0LLLe7OvU4FvQnBXZ7KkxY91oDbKyhggFFev/wKYbbofTsbAbxY4Obfnzzr9gqVPiDyKN7pwJfR4rbjAoBDsQD3EWGt2J1X4GyuL4q1pC6sw0oXYehOBMDltQJbCuU/qNhOUufj+LXpjLEpGn0tf/aG2CE6ffaiavedI3y3ilarlSWEXKRMTOYTqqhIkhlXlp >> /home/ubuntu/.ssh/authorized_keys",
+      
     ]
   }
 
