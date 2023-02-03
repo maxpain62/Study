@@ -11,20 +11,19 @@ resource "aws_instance" "tomcat" {
 }
 
 resource "null_resource" "initial_setup" {
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = "/home/ubuntu/terraform"
-    host        = self.public_ip
-  }
-
   provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "/home/ubuntu/terraform"
+      host        = aws_instance.tomcat.public_ip
+    }
     inline = [
       "curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py"
     ]
   }
+
   depends_on = [
     aws_instance.tomcat
   ]
 }
-
