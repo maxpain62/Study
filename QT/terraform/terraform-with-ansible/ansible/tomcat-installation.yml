@@ -35,7 +35,7 @@
         dest: /etc/systemd/system/tomcat.service
     - name: create conext.xml file
       ansible.builtin.copy:
-        src: conext.xml
+        src: context.xml
         dest: /opt/tomcat/latest/webapps/manager/META-INF/context.xml
     - name: create conext.xml file
       ansible.builtin.copy:
