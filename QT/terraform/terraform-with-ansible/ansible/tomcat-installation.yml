@@ -11,10 +11,10 @@
     - name: download and unarchieve tomcat file
       ansible.builtin.unarchive: 
         src: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.71/bin/apache-tomcat-9.0.71.tar.gz
-        dest: /opt/
+        dest: /opt/tomcat/
         remote_src: yes
     - name: create link for tomcat
       ansible.builtin.file:
-        src: /opt/apache-tomcat-9.0.71
-        dest: /opt/tomcat-latest
+        src: /opt/tomcat/apache-tomcat-9.0.71
+        dest: /opt/tomcat/latest
         state: link
