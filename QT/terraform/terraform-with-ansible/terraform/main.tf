@@ -21,6 +21,9 @@ resource "null_resource" "adding_ansible_files" {
         source = "/home/ubuntu/Study/QT/terraform/terraform-with-ansible/ansible"
         destination = "/home/ubuntu/"    
     }
+  depends_on = [
+    aws_instance.tomcat
+  ]
 }
 
 resource "null_resource" "initial_setup" {
@@ -38,12 +41,11 @@ resource "null_resource" "initial_setup" {
       "python3 -m pip install --user ansible",
       "echo 'PATH=$PATH:/home/ubuntu/.local/bin' >> /home/ubuntu/.bashrc",
       "ssh-keygen -t rsa -N '' -f localhost_key",
-      "cat localhost_key.pub >> /home/ubuntu/.ssh/authotized_keys",
-      "ansible-playbook -i ansible/hosts ansible/tomcat-installation.yml"
+      "ansible-playbook -i ansible/hosts ansible/tomcat-installation.yml",
     ]
   }
 
   depends_on = [
-    aws_instance.tomcat
+    null_resource.adding_ansible_files
   ]
 }
