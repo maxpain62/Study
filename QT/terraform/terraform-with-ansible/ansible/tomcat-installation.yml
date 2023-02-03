@@ -33,12 +33,12 @@
       ansible.builtin.copy:
         src: tomcat.service
         dest: /etc/systemd/system/tomcat.service
-    - name: create conext.xml file
+    - name: create context.xml file
       ansible.builtin.copy:
         src: context.xml
         dest: /opt/tomcat/latest/webapps/manager/META-INF/context.xml
-    - name: create conext.xml file
+    - name: create context.xml file
       ansible.builtin.copy:
-        src: conext.xml
+        src: context.xml
         dest: /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
     
