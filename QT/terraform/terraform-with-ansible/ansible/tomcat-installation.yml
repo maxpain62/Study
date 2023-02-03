@@ -29,3 +29,16 @@
         src: /opt/tomcat/apache-tomcat-9.0.71
         dest: /opt/tomcat/latest
         state: link
+    - name: create tomcat service file 
+      ansible.builtin.copy:
+        src: tomcat.service
+        dest: /etc/systemd/syetem/tomcat.service
+    - name: create conext.xml file
+      ansible.builtin.copy:
+        src: conext.xml
+        dest: /opt/tomcat/latest/webapps/manager/META-INF/context.xml
+    - name: create conext.xml file
+      ansible.builtin.copy:
+        src: conext.xml
+        dest: /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
+    
