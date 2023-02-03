@@ -32,7 +32,7 @@
     - name: create tomcat service file 
       ansible.builtin.copy:
         src: tomcat.service
-        dest: /etc/systemd/syetem/tomcat.service
+        dest: /etc/systemd/system/tomcat.service
     - name: create conext.xml file
       ansible.builtin.copy:
         src: conext.xml
