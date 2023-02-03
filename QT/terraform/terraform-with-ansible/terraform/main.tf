@@ -15,7 +15,7 @@ resource "null_resource" "initial_setup" {
     connection {
       type        = "ssh"
       user        = "ubuntu"
-      private_key = "/home/ubuntu/Study/QT/terraform/terraform-with-ansible/terraform/terraform_key"
+      private_key = file("/home/ubuntu/Study/QT/terraform/terraform-with-ansible/terraform/terraform_key")
       host        = aws_instance.tomcat.public_ip
     }
     inline = [
