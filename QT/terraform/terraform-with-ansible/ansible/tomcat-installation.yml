@@ -43,6 +43,10 @@
       ansible.builtin.copy:
         src: context.xml
         dest: /opt/tomcat/latest/webapps/host-manager/META-INF/context.xml
+    - name: create tomcat-users.xml file
+      ansible.builtin.copy:
+        src: tomcat-users.xml
+        dest: /opt/tomcat/apache-tomcat-9.0.71/conf/tomcat-users.xml
     - name: start tomcat service
       ansible.builtin.systemd:
         name: tomcat.service
