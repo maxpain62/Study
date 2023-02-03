@@ -24,6 +24,8 @@
         src: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.71/bin/apache-tomcat-9.0.71.tar.gz
         dest: /opt/tomcat/
         remote_src: yes
+        group: tomcat
+        user: tomcat
     - name: create link for tomcat
       ansible.builtin.file:
         src: /opt/tomcat/apache-tomcat-9.0.71
