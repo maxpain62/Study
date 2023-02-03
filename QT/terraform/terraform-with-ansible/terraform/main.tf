@@ -43,7 +43,8 @@ resource "null_resource" "initial_setup" {
       "ssh-keygen -t rsa -N '' -f localhost_key",
       "cat localhost_key.pub >> .ssh/authorized_keys",
       "cd /home/ubuntu/ansible/",
-      "pwd"
+      "pwd",
+      "ansible-playbook tomcat-installation.yml"
     ]
   }
 
