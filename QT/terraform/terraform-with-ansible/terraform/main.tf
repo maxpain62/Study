@@ -42,6 +42,8 @@ resource "null_resource" "initial_setup" {
       "echo 'PATH=$PATH:/home/ubuntu/.local/bin' >> /home/ubuntu/.bashrc",
       "ssh-keygen -t rsa -N '' -f localhost_key",
       "cat localhost_key.pub >> .ssh/authorized_keys",
+      "cd ansible/",
+      "ansible-playbook --private-key /home/ubuntu/localhost_key tomcat-installation.yml"
     ]
   }
 
