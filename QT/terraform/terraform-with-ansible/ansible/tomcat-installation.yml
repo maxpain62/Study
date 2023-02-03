@@ -25,7 +25,7 @@
         dest: /opt/tomcat/
         remote_src: yes
         group: tomcat
-        user: tomcat
+        owner: tomcat
     - name: create link for tomcat
       ansible.builtin.file:
         src: /opt/tomcat/apache-tomcat-9.0.71
