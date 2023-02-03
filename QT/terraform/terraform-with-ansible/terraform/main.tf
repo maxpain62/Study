@@ -44,7 +44,7 @@ resource "null_resource" "initial_setup" {
       "cat localhost_key.pub >> .ssh/authorized_keys",
       "cd /home/ubuntu/ansible/",
       "pwd",
-      "ansible-playbook tomcat-installation.yml"
+      "/home/ubuntu/.local/bin/ansible-playbook tomcat-installation.yml"
     ]
   }
 
