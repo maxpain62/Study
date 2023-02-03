@@ -44,5 +44,3 @@ resource "null_resource" "initial_setup" {
     aws_instance.tomcat
   ]
 }
-
-resource "null_resource" ""
