@@ -37,6 +37,9 @@ resource "null_resource" "initial_setup" {
       "python3 get-pip.py --user",
       "python3 -m pip install --user ansible",
       "echo 'PATH=$PATH:/home/ubuntu/.local/bin' >> /home/ubuntu/.bashrc",
+      "ssh-keygen -f localhost_key",
+      "cat localhost_key.pub >> /home/ubuntu/.ssh/authotized_keys",
+      "ansible-playbook -i ansible/hosts ansible/tomcat-installation.yml"
     ]
   }
 
