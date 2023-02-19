@@ -1,0 +1,22 @@
+---
+pool: 
+  name: 'Azure Pipelines'
+  vmImage: 'ubuntu-latest'
+
+trigger:
+  - main
+
+stages:
+  - stage: build
+    displayName: buildstage
+    jobs:
+      - job: buildjob
+        displayName: mavenbuildjob
+        steps:
+          - task: Maven@3
+            inputs:
+              mavenPomFile: 'pom.xml'
+              goals: 'package'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              jdkVersionOption: '1.17'
