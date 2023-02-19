@@ -6,6 +6,13 @@ pool:
 trigger:
   - main
 
+schedules:
+  - cron: "* * * * *"
+    displayName: everyminute
+    branches:
+      include:
+        - main
+
 stages:
   - stage: build
     displayName: buildstage
