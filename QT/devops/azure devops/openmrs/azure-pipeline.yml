@@ -1,0 +1,21 @@
+pool:
+  name: 'Azure Pipelines'
+  vmImage: 'ubuntu-22.04'
+
+trigger:
+  - master
+
+stages:
+  - stage: build
+    displayName: buildstage
+    jobs:
+      - job: openmrs
+        displayName: openmrsjob
+        steps:
+          - task: Maven@3
+            inputs:
+              mavenPOMFile: 'pom.xml'
+              goals: 'package'
+              publishJUnitResults: true
+              testResultsFiles: '**/surefire-reports/TEST-*.xml'
+              jdkVersionOption: '1.17'
