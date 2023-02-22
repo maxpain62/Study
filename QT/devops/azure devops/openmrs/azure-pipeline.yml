@@ -5,6 +5,10 @@ pool:
 trigger:
   - master
 
+variables:
+  - name: goal
+    value: package
+
 stages:
   - stage: build
     displayName: buildstage
@@ -15,7 +19,7 @@ stages:
           - task: Maven@3
             inputs:
               mavenPOMFile: 'pom.xml'
-              goals: 'package'
+              goals: $(goal)
               publishJUnitResults: true
               testResultsFiles: '**/surefire-reports/TEST-*.xml'
               jdkVersionOption: '1.11'
