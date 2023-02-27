@@ -6,9 +6,7 @@ pool:
 trigger:
   - master
 
-extends:
-  template: ./templates/demo-parameters.yml
-  parameters:
-    branch: master
-    agentvmImage: ubuntu-18.04
-    jdkversion: '1.8'
+steps:
+  - templates: ./templates/demo-template.yml
+    parameters:
+      jdkversion: '1.8'
