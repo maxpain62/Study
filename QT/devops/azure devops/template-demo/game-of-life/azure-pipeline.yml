@@ -6,7 +6,7 @@ pool:
 trigger:
   - master
 
-extend:
+extends:
   template: ./templates/demo-parameters.yml
   parameters:
     branch: master
