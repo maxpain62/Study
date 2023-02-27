@@ -1,0 +1,13 @@
+parameters:
+    - name: branch
+      desplayName: Git Branch
+      type: string
+      default: 'main'
+    - name: agentvmImage
+      desplayName: Agent vm Image
+      type: string
+      default: 'ubuntu-latest'
+    - name: jdkversion
+      desplayName: 'Java version'
+      type: string
+      default: '1.11'
