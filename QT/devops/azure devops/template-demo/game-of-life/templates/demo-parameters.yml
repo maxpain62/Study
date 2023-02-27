@@ -1,13 +1,16 @@
 parameters:
     - name: branch
-      desplayName: Git Branch
+      displayName: Git Branch
       type: string
       default: 'main'
     - name: agentvmImage
-      desplayName: Agent vm Image
+      displayName: Agent vm Image
       type: string
       default: 'ubuntu-latest'
     - name: jdkversion
-      desplayName: 'Java version'
+      displayName: 'Java version'
       type: string
       default: '1.11'
+
+steps:
+    - script: echo hello
