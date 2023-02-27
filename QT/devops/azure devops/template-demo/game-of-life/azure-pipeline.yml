@@ -7,6 +7,6 @@ trigger:
   - master
 
 steps:
-  - templates: ./templates/demo-template.yml
+  - template: ./templates/demo-template.yml
     parameters:
       jdkversion: '1.8'
