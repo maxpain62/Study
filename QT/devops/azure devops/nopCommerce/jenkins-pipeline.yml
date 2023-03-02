@@ -1,0 +1,30 @@
+pool:
+  name: 'azure pipelines'
+  vmImage: 'ubuntu-18.04'
+
+trigger:
+  - main
+
+stages:
+  - stage: build
+    displayName: build stage
+    jobs:
+      - job: buildjob
+        displayName: build job
+        steps:
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'build'
+              projects: '**/NopCommerce.sln'
+  - stage: publish
+    displayName: publish stage
+    jobs:
+      - job: publishjob
+        displayName: publish job
+        steps:
+          - task: DotNetCoreCLI@2
+            inputs:
+              command: 'publish'
+              publishWebProjects: true
+              projects: '**/Nop.Web.csproj'
+              arguments: '-o $(Build.ArtifactStagingDirectory)/Output'
