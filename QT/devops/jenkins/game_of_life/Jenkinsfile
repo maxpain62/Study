@@ -1,5 +1,6 @@
 pipeline {
     agent { label 'JDK_8_11' }
+    triggers { pollSCM ('*/15 * * * *') }
     stages {
         stage ('vcs') {
             steps {git 'https://github.com/wakaleo/game-of-life.git'}
