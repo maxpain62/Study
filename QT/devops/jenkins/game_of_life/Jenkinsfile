@@ -3,13 +3,11 @@ pipeline {
     triggers { pollSCM ('*/15 * * * *') }
     stages {
         stage ('vcs') {
-            steps {git 'https://github.com/wakaleo/game-of-life.git'}
+            steps { git 'https://github.com/wakaleo/game-of-life.git' }
         }
         stage ('build') {
-            tools {
-                jdk 'JDK_8_UBUNTU'
-            }
-            steps {sh 'mvn package'}
+            tools { jdk 'JDK_8_UBUNTU' }
+            steps { sh 'mvn package' }
         }
     }
 }
