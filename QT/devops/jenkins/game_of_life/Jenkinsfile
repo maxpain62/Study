@@ -21,4 +21,10 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            mail to: ,
+                 subject: 
+        }
+    }
 }
