@@ -17,6 +17,7 @@ pipeline {
         stage ('post build') {
             steps {
                 archiveArtifacts artifacts: '**/*.war'
+                junit '**/*.xml'
             }
         }
     }
