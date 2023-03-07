@@ -6,5 +6,10 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/gauravlab01-outlook/spring-petclinic.git'
             }
         }
+        stage ('build') {
+            steps {
+                sh 'mvn package'
+            }
+        }
     }
 }
