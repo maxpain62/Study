@@ -32,7 +32,7 @@ pipeline {
         stage ('build') {
             steps {
                 rtMavenRun (
-                    tool: 'MAVEN_DEFAULT',
+                    tool: 'maven_3.6.3_ubuntu',
                     pom: 'pom.xml',
                     goals: 'clean install',
                     deployerId: "MAVEN_DEPLOYER"
