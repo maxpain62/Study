@@ -38,7 +38,7 @@ pipeline {
                     deployerId: "MAVEN_DEPLOYER"
 
                 )
-            rtPublishBuildInfo (
+                rtPublishBuildInfo (
                     serverId: "ARTIFACTORY_SERVER"
                 )
             } 
@@ -54,6 +54,13 @@ pipeline {
             steps {
                 archiveArtifacts artifacts: '**/target/spring-petclinic-3.0.0-SNAPSHOT.jar', onlyIfSuccessful: true
                 junit testResults: '**/surefire-reports/TEST-*.xml'
+                stash name: 'spc', includes: '**/target/*'
+            }
+        }
+        stage ('unstash') {
+            agent { label 'JDK_8_11' }
+            steps {
+                unstash name: 'spc'
             }
         }
     }
