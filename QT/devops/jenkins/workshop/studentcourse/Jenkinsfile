@@ -1,0 +1,24 @@
+pipeline {
+    agent { label 'docker' }
+    triggers {
+        pollSCM('*/10 * * * *')
+    }
+    stages {
+        stage('vcs') {
+            steps {
+                git url: 'https://github.com/maxpain62/StudentCoursesRestAPI',
+                    branch: 'develop'
+            }
+        }
+        stage ('docker build') {
+            steps {
+                sh 'docker image build -t maxpain62/spc:latest .'
+            }
+        }
+        stage ('docker image push') {
+            steps {
+                sh 'docker image push maxpain62/spc:latest'
+            }
+        }
+    }
+}

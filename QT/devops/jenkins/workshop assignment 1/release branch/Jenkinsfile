@@ -1,0 +1,23 @@
+pipeline{
+    agent{
+        label "node"
+    }
+    stages{
+        stage("release branch vcs") {
+            steps {
+                git url: <url>, branch: 'release'
+            }
+        }
+        stage('build') {
+            steps {
+                'sh maven package'
+            }
+        }
+        stage ('post build') {
+            steps {
+                archiveArtifacts artifacts: '**/*.war', onlyIfSuccessful: true
+                junit testResults: '**/surefire-reports/TEST-*.xml'
+            }
+        }
+    }
+}
