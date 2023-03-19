@@ -1,0 +1,10 @@
+daily roles and responsibilities
+============================================
+I work closely with the development team to ensure that their code is properly integrated and deployed on various environments. This involves providing support for continuous integration and delivery pipelines, helping to troubleshoot issues and errors, and providing guidance on best practices for development and deployment.
+
+One of my main responsibilities is to identify opportunities to automate tasks and processes that can help streamline development and deployment workflows. This may involve creating scripts or using existing tools to automate tasks such as building and deploying code, managing infrastructure, and monitoring system health.
+
+I am responsible for managing the infrastructure that supports our applications, including servers, databases, and other resources. This involves setting up and configuring servers, monitoring system health and performance, and ensuring that all necessary security patches and updates are applied.
+
+I work to monitor our systems and applications, using tools and analytics to identify and troubleshoot issues as they arise. This may involve setting up monitoring dashboards and alerts, analyzing logs and other data to identify patterns and trends, and working with the development team to resolve any issues that arise.
+============================================

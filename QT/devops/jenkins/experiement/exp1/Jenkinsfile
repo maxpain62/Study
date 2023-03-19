@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+    stages {
+        stage ('GIT') {
+            steps {
+                git url:'https://github.com/gauravlab01-outlook/regapp.git'
+            }
+        }
+        stage ('build') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage ('publish result and package') {
+            steps {
+                junit '**/target/surefire-reports/*.xml'
+                archiveArtifacts artifacts: '**/webapp/target/webapp.war'
+                stash name: 'regapp', includes: '**/webapp/target/webapp.war'
+            }
+        }
+        stage ('build and push docker image') {
+            agent {label 'docker'}
+            steps {
+                sh 'cp webapp/target/webapp.war /home/ubuntu/regapp_docker/'
+                sh 'cd /home/ubuntu/regapp_docker/ && docker image build -t maxpain62/regapp:$(date +%y%m%d%H%M) . && docker image push maxpain62/regapp:$(date +%y%m%d%H%M)'
+                sh 'cd /home/ubuntu/regapp_docker/ && docker image build -t maxpain62/regapp:latest . && docker image push maxpain62/regapp:latest && docker image rm maxpain62/regapp:latest'
+            }
+        }
+    }
+}
