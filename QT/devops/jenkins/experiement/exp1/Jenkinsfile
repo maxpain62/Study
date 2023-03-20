@@ -11,6 +11,13 @@ pipeline {
                 sh 'mvn package'
             }
         }
+        stage ('sonar analysis') {
+            steps {
+                withSonarQubeEnv ('SONAR_CLOUD') {
+                    sh 'mvn clean package sonar:sonar -Dsonar.organization=spc-organization -Dsonar.projectKey=spc-organization_regapp'
+                }
+            }
+        }
         stage ('publish result and package') {
             steps {
                 junit '**/target/surefire-reports/*.xml'
