@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata: 
+  name: spc-cronjob-demo
+  namespace: my-namespace
+spec:
+  schedule: "0 23 * * *"
+  jobTemplate:
+    metadata:
+      name: spc-cronjob
+    spec:
+      selector:
+        matchLabels: 
+          purpose: download
+      template: 
+        metadata:
+          name: spc-cronjob-pod
+          labels:
+            purpose: download
+        spec: 
+          containers:
+            - name: alpine
+              image: alpine
+              command:
+                - git
+                - https://github.com/spring-projects/spring-petclinic.git

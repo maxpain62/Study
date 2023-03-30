@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+  name: rs-demo
+  labels:
+    app: jenkins-ping
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jenkins-ping-pod
+  template:
+    metadata:
+      name: rs-demo-pod
+      labels:
+        app: jenkins-ping-pod
+    spec:
+      restartPolicy: never
+      containers:
+        - name: jenkins-container
+          image: jenkins:2.60.3
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+      initContainers:
+        - name: ping-container
+          image: alpine
+          command: 
+            - ping
+          args: 
+            - c 
+            - 4
+            - google.com
