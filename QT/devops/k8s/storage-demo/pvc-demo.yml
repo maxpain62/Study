@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-demo
+spec:
+  accessModes: 
+    - ReadWriteOnce
+  storageClassName: standard
+  resources: 
+    requests: 
+      storage: 1Gi
+
+# comments
+# pvc will not create vol without following certain steps, refer below articals:-
+# https://stackoverflow.com/questions/75758115/persistentvolumeclaim-is-stuck-waiting-for-a-volume-to-be-created-either-by-ex
+# https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
+# https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html
