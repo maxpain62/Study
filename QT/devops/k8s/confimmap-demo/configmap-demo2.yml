@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: configmap-pod2
+spec:
+  containers:
+    - name: configmap-container2
+      image: alpine
+      command:
+        - sleep
+        - 1d
+      env:
+        - name: TIMEOUT
+          valueFrom: 
+            configMapKeyRef: 
+              key: timeout
+              name: comfigmap-demo

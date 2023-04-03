@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+spec:
+  containers:
+    - name: configmap-container
+      image: alpine
+      command:
+        - sleep
+        - 1d
+      env:
+        - name: key
+          value: value
