@@ -1,5 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
-  kind: Kustomization
-  bases:
+kind: Kustomization
+resources:
   - ../../simple
-  namePrefix: dev-
+namePrefix: dev-
+images:
+- name: nginx
+  newName: nginx
+  newTag: 3
