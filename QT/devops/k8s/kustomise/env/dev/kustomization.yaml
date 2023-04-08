@@ -6,4 +6,4 @@ namePrefix: dev-
 images:
 - name: nginx
   newName: nginx
-  newTag: 3
+  newTag: "3"
