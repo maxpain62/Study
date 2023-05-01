@@ -1,0 +1,17 @@
+pipeline{
+    agent any
+    stages{
+        stage("git") {
+            steps{
+                git url="https://github.com/DeekshithSN/sample-web-application.git", branch="ansible-sonar"
+            }
+        }
+        stage("buils") 
+        agent {}
+        {
+            steps {
+                sh 'mvn package'
+            }
+        }
+    }
+}

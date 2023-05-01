@@ -1,0 +1,30 @@
+pipeline{
+    agent any
+    stages{
+        stage("pull code"){
+            steps{
+                git branch: 'main', url: 'https://github.com/maxpain62/CICD_Java_gradle_application.git' 
+            }
+        }
+        stage("sonar quality check"){
+            steps{
+                    withSonarQubeEnv(installationName: 'sonar_qube_installation', credentialsId: 'sonar_token') {
+                        sh 'chmod +x gradlew'
+                        sh './gradlew sonarqube -Dsonar.organization=gradel-cicd'
+                }
+            }
+        }
+        stage("quality gate"){
+            steps{
+                script{
+                    timeout(time: 1, unit: 'MINUTES') {
+                        def qg = waitForQualityGate()
+                        if (qg.status != 'OK') {
+                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
