@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment{
+        VERSION = "${env.BUILD_ID}"
+    }
     stages{
         stage("pull code"){
             steps{
@@ -24,6 +27,11 @@ pipeline{
                         }
                     }
                 }
+            }
+        }
+        stage("push to docker hub"){
+            steps{
+                sh 'docker build -t maxpain/sampleweb:${VERSION} . && docker image rm maxpain/sampleweb:${VERSION}'
             }
         }
     }
