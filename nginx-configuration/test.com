@@ -11,3 +11,5 @@ server {
                 try_files $uri $uri/ =404;
         }
 }
+
+uncomment line from file /etc/nginx/nginx.conf "server_names_hash_bucket_size 64;"
