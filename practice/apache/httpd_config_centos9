@@ -1,0 +1,63 @@
+below is virtual host configuration on port 443/ssl
+config file location /etc/httpd/conf.d
+[root@webserver conf.d]# cat example_ssl.conf
+<VirtualHost *:443>
+    ServerName example.com
+    ServerAlias www.example.com
+    DocumentRoot /var/www/example
+    ErrorLog /var/log/httpd/example-error.log
+    CustomLog /var/log/httpd/example-access.log combined
+
+    SSLEngine on
+    SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt
+    SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key
+</VirtualHost>
+[root@webserver conf.d]# cat example1_ssl.conf
+<VirtualHost *:443>
+    ServerName example1.com
+    ServerAlias www.example1.com
+    DocumentRoot /var/www/example1
+    ErrorLog /var/log/httpd/example1-error.log
+    CustomLog /var/log/httpd/example1-access.log combined
+
+    SSLEngine on
+    SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt
+    SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key
+</VirtualHost>
+[root@webserver conf.d]# cat php_ssl.conf
+<VirtualHost *:443>
+    ServerName php.com
+    ServerAlias www.php.com
+    DocumentRoot /var/www/php
+    ErrorLog /var/log/httpd/php-error.log
+    CustomLog /var/log/httpd/php-access.log combined
+
+    SSLEngine on
+    SSLCertificateFile /etc/pki/tls/certs/apache-selfsigned.crt
+    SSLCertificateKeyFile /etc/pki/tls/private/apache-selfsigned.key
+</VirtualHost>
+######################################
+below is virtual host configuration for redirecting all traffic from http to https
+config file location /etc/httpd/conf.d
+[root@webserver conf.d]# cat example_redirect.conf
+<VirtualHost *:80>
+    ServerName example.com
+    Redirect / https://www.example.com/
+</VirtualHost>
+[root@webserver conf.d]# cat example1_redirect.conf
+<VirtualHost *:80>
+    ServerName example1.com
+    Redirect / https://www.example1.com/
+</VirtualHost>
+[root@webserver conf.d]# cat php_redirect.conf
+<VirtualHost *:80>
+    ServerName php.com
+    Redirect / https://www.php.com/
+
+    ErrorLog /var/log/httpd/php-redirect-error.log
+    CustomLog /var/log/httpd/php-redirect-access.log combined
+</VirtualHost>
+######################################
+also make sure to add below values in /etc/httpd/conf/httpd.conf file
+Listen 443
+Listen 80
